@@ -241,8 +241,34 @@
       heroYouTube.dataset.loaded = 'true';
 
       var id = heroYouTube.getAttribute('data-yt-id');
-      var start = heroYouTube.getAttribute('data-yt-start') || '0';
       if (!id) return;
+
+      /* Zanim wstawimy ramkę, sprawdzamy miniaturką, czy YouTube jest w ogóle
+         osiągalny. Powód jest konkretny: gdy ramka zostanie zablokowana
+         (blokada reklam, firewall firmowy, polityka CSP, niezaakceptowany
+         baner zgody), przeglądarka i tak zgłasza zdarzenie `load`, a w miejscu
+         odtwarzacza rysuje ikonę uszkodzonego dokumentu — na środku nagłówka.
+         Miniatura kosztuje kilkanaście kB i pozwala tego uniknąć: gdy się nie
+         wczyta, ramka w ogóle nie powstaje i zostaje czysty plakat. */
+      var probe = new Image();
+      probe.referrerPolicy = 'no-referrer';
+      probe.onerror = function () {
+        // YouTube niedostępny — plakat zostaje, nic więcej nie robimy.
+        heroYouTube.dataset.loaded = 'blocked';
+      };
+      probe.onload = function () {
+        insertFrame(id);
+      };
+      probe.src = 'https://i.ytimg.com/vi/' + encodeURIComponent(id) + '/hqdefault.jpg';
+    };
+
+    /* Wstawienie odtwarzacza. Parametry adresu robią z niego tło:
+       mute=1 (bez tego przeglądarka zablokuje autoodtwarzanie), loop wymaga
+       playlist z tym samym identyfikatorem, controls=0 chowa pasek,
+       rel=0 ogranicza propozycje innych filmów, iv_load_policy=3 wyłącza
+       adnotacje. */
+    var insertFrame = function (id) {
+      var start = heroYouTube.getAttribute('data-yt-start') || '0';
 
       var params = [
         'autoplay=1',

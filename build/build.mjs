@@ -382,7 +382,7 @@ function buildHtaccess() {
      polityka pozostaje maksymalnie restrykcyjna. */
   const CSP_FRAME =
     site.heroVideo && site.heroVideo.enabled && site.heroVideo.source === 'youtube'
-      ? "frame-src https://www.youtube-nocookie.com; "
+      ? "frame-src https://www.youtube-nocookie.com; img-src 'self' data: https://i.ytimg.com; "
       : '';
 
   return `# ==========================================================================
