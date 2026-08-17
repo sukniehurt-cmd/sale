@@ -332,19 +332,27 @@ elementem LCP pozostaje nagłówek, renderowany z samego HTML i CSS.
 
 ### Kontrast tekstu
 
-Nad nagraniem leży przyciemnienie (`.hero__scrim`) o sile malejącej w prawo —
-mocne pod nagłówkiem, słabe tam, gdzie film ma być widoczny. Wartości zostały
-dobrane **pomiarem pikseli** na najgorszym przypadku, czyli jasnych,
-ośnieżonych kadrach:
+Nagranie jest widoczne w pełni (krycie 92%), a tekst chroni przyciemnienie
+złożone z trzech warstw o różnych zadaniach (`.hero__scrim`):
+
+1. **Welon na całości** (26%) — spina film z paletą marki i ścina prześwietlenia.
+2. **Gradient od lewej** — pełna moc pod kolumną z tekstem (do ok. 52% szerokości),
+   wygaszany do zera przy 80%. Prawa część kadru zostaje bez zasłony i to tam
+   film gra czysto.
+3. **Gradient od dołu** — pod paskiem zaufania i granią.
+
+Kluczowe: przyciemnienie działa **miejscowo**, tam gdzie stoi tekst — a nie
+jako jedna zasłona gasząca cały kadr. Wartości dobrane **pomiarem pikseli**
+na najgorszym przypadku, czyli jasnych, ośnieżonych kadrach:
 
 | Element | Zmierzony kontrast | Wymóg WCAG AA |
 |---|---|---|
-| Nagłówek `h1`, biel | 7,2:1 | 3,0:1 |
-| Nagłówek `h1`, bursztyn | 4,1:1 | 3,0:1 |
-| Akapit wiodący | 4,9:1 | 4,5:1 |
-| Pasek zaufania | 6,5:1 | 4,5:1 |
-| Etykieta panelu | 7,3:1 | 4,5:1 |
-| Treść panelu | 5,2:1 | 4,5:1 |
+| Nagłówek `h1`, biel | 9,0:1 | 3,0:1 |
+| Nagłówek `h1`, bursztyn | 5,1:1 | 3,0:1 |
+| Akapit wiodący | 6,1:1 | 4,5:1 |
+| Pasek zaufania | 6,9:1 | 4,5:1 |
+| Etykieta panelu | 7,8:1 | 4,5:1 |
+| Treść panelu | 10,1:1 | 4,5:1 |
 
 Jeśli podmienisz nagranie na wyraźnie jaśniejsze i chcesz zwiększyć jego
 widoczność, reguluj `heroVideo.opacity` w `site.mjs` — ale po każdej zmianie

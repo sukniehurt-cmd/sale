@@ -782,9 +782,10 @@ b {
   height: 100%;
   object-fit: cover;
   opacity: 0;
-  /* Nagranie stapia się z paletą: mniej nasycenia, chłodniejszy odcień.
-     Bez tego zielenie i błękity z filmu biją się z granatem i kosówką. */
-  filter: saturate(0.62) contrast(1.04) brightness(0.95);
+  /* Lekkie stonowanie, żeby nagranie weszło w paletę marki — ale bez
+     przygaszania. Za ciemnienie odpowiadają warstwy przyciemnienia,
+     które działają miejscowo, a nie na całym kadrze. */
+  filter: saturate(0.85) contrast(1.02);
   transition: opacity 1.2s var(--ease);
 }
 
@@ -793,21 +794,49 @@ b {
 .hero__video.is-playing {
   /* Wartość pochodzi z heroVideo.opacity w site.mjs (zmienna ustawiana
      na .hero__media). Liczba po przecinku to zapas, gdyby jej zabrakło. */
-  opacity: var(--hero-video-opacity, 0.55);
+  opacity: var(--hero-video-opacity, 0.92);
 }
 
 /* Przyciemnienie gwarantujące kontrast tekstu niezależnie od jasności klatki.
    Mocniejsze po lewej, gdzie stoi nagłówek, i u dołu, gdzie zaczyna się grań. */
+/* --- Przyciemnienie ---------------------------------------------------------
+   Zamiast jednej mocnej zasłony na całym kadrze — trzy warstwy o różnych
+   zadaniach. Dzięki temu nagranie pozostaje wyraźnie widoczne tam, gdzie nie
+   ma tekstu, a chronione są wyłącznie te miejsca, gdzie tekst faktycznie stoi.
+
+   Warstwa 1 — delikatny granatowy welon na całości: spina film z paletą
+                marki i ścina prześwietlone partie, nie gasząc obrazu.
+   Warstwa 2 — gradient od lewej: kolumna z nagłówkiem dostaje pełną ochronę,
+                a od ok. 60% szerokości zanika do zera i film gra czysto.
+   Warstwa 3 — dół kadru pod paskiem zaufania i granią.
+
+   Pojawia się dopiero razem z odtwarzanym nagraniem (klasa na .hero__media),
+   żeby nie przyciemniać samego plakatu na telefonach. */
 .hero__scrim {
   position: absolute;
   inset: 0;
-  /* Najmocniejsze po lewej, gdzie stoi nagłówek, najsłabsze po prawej,
-     żeby nagranie było widoczne. Wartości dobrane pomiarem kontrastu
-     na jasnych, ośnieżonych kadrach — najgorszym przypadku dla białego
-     tekstu. Zmierzony wynik przy tych ustawieniach opisuje README. */
+  opacity: 0;
+  transition: opacity 1.2s var(--ease);
   background:
-    linear-gradient(100deg, rgba(11, 31, 51, 0.82) 0%, rgba(11, 31, 51, 0.5) 45%, rgba(11, 31, 51, 0.16) 100%),
-    linear-gradient(to bottom, rgba(7, 23, 38, 0.45) 0%, transparent 30%, rgba(7, 23, 38, 0.34) 64%, rgba(7, 23, 38, 0.74) 100%);
+    /* Kolumna z tekstem sięga ok. 51% szerokości ekranu — do tego miejsca
+       gradient trzyma pełną moc, a wygasza się dopiero między 52% a 78%.
+       Prawa część kadru zostaje bez zasłony i to tam film gra czysto. */
+    linear-gradient(95deg,
+      rgba(11, 31, 51, 0.9) 0%,
+      rgba(11, 31, 51, 0.84) 32%,
+      rgba(11, 31, 51, 0.7) 52%,
+      rgba(11, 31, 51, 0.22) 68%,
+      rgba(11, 31, 51, 0) 80%),
+    linear-gradient(to bottom,
+      rgba(7, 23, 38, 0.3) 0%,
+      rgba(7, 23, 38, 0) 32%,
+      rgba(7, 23, 38, 0.18) 60%,
+      rgba(7, 23, 38, 0.72) 100%),
+    linear-gradient(rgba(11, 31, 51, 0.26), rgba(11, 31, 51, 0.26));
+}
+
+.hero__media.is-playing .hero__scrim {
+  opacity: 1;
 }
 
 /* Sylwetka Tatr w tle — dekoracja, poza drzewem dostępności */
@@ -903,8 +932,8 @@ b {
    na jasnych kadrach do 2,5:1. Granatowy podkład trzyma kontrast
    niezależnie od tego, co akurat pokazuje nagranie. */
 .hero--video .hero__panel {
-  background: rgba(9, 26, 43, 0.72);
-  border-color: rgba(255, 255, 255, 0.16);
+  background: rgba(9, 26, 43, 0.86);
+  border-color: rgba(255, 255, 255, 0.18);
 }
 
 .hero__panel {

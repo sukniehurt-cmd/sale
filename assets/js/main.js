@@ -208,8 +208,11 @@
       heroVideo.load();
 
       // Pokaż dopiero, gdy leci obraz — inaczej mignęłaby czarna klatka.
+      // Klasa na kontenerze włącza też przyciemnienie: bez odtwarzanego
+      // nagrania nie ma czego przyciemniać, a plakat ma zostać czysty.
       heroVideo.addEventListener('playing', function () {
         heroVideo.classList.add('is-playing');
+        if (heroVideo.parentElement) heroVideo.parentElement.classList.add('is-playing');
       });
 
       // Autoodtwarzanie bywa blokowane mimo `muted`. Odrzucona obietnica

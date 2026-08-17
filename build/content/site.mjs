@@ -113,7 +113,7 @@ export const site = {
     minWidth: 768,
     /* Przezroczystość nagrania na tle granatu. Niżej = mocniejsza marka
        i lepszy kontrast tekstu, wyżej = wyraźniejszy film. */
-    opacity: 0.55
+    opacity: 0.92
   },
 
   /* --- Ustawienia techniczne -------------------------------------------- */
