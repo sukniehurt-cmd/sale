@@ -1,0 +1,20 @@
+# ==========================================================================
+# robots.txt — Tatry Marketing
+# ==========================================================================
+# Serwis jest w całości przeznaczony do indeksowania. Blokujemy wyłącznie
+# katalog z kodem generatora, który nie zawiera treści dla użytkowników.
+
+User-agent: *
+Allow: /
+Disallow: /build/
+
+# Boty scrapujące treść pod modele językowe — odkomentuj, jeśli nie chcesz,
+# by treści z bloga trafiały do zbiorów treningowych. Uwaga: blokada
+# GPTBot nie wpływa na widoczność w Google.
+# User-agent: GPTBot
+# Disallow: /
+# User-agent: CCBot
+# Disallow: /
+
+# Mapa strony
+Sitemap: https://tatrymarketing.pl/sitemap.xml

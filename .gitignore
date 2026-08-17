@@ -1,0 +1,22 @@
+# Zależności (projekt ich nie używa, ale npm potrafi je stworzyć)
+node_modules/
+package-lock.json
+
+# Systemowe
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Edytory
+.vscode/
+.idea/
+*.swp
+*~
+
+# Logi
+*.log
+npm-debug.log*
+
+# Pliki tymczasowe
+.cache/
+tmp/

@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- ===== Podstawowe znaczniki SEO ===== -->
+<title>Pozycjonowanie i strony WWW — Podhale | Tatry Marketing</title>
+<meta name="description" content="Agencja SEO z Podhala. Pozycjonowanie lokalne, szybkie strony WWW i Google Ads dla firm z Zakopanego, Nowego Targu i okolic. Bezpłatna analiza.">
+<link rel="canonical" href="https://tatrymarketing.pl/">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<meta name="author" content="Tatry Marketing">
+
+<!-- Zasięg geograficzny — wspiera dopasowanie do zapytań lokalnych -->
+<meta name="geo.region" content="PL-MA">
+<meta name="geo.placename" content="Zakopane">
+<meta name="geo.position" content="49.29899;19.94966">
+<meta name="ICBM" content="49.29899, 19.94966">
+
+<!-- ===== Open Graph (Facebook, LinkedIn, komunikatory) ===== -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tatrymarketing.pl/">
+<meta property="og:title" content="Pozycjonowanie i strony WWW — Podhale | Tatry Marketing">
+<meta property="og:description" content="Agencja SEO z Podhala. Pozycjonowanie lokalne, szybkie strony WWW i Google Ads dla firm z Zakopanego, Nowego Targu i okolic. Bezpłatna analiza.">
+<meta property="og:image" content="https://tatrymarketing.pl/assets/img/og-default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Tatry Marketing — Pozycjonowanie i strony internetowe dla firm z Podhala">
+<meta property="og:site_name" content="Tatry Marketing">
+<meta property="og:locale" content="pl_PL">
+
+<!-- ===== Twitter / X ===== -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Pozycjonowanie i strony WWW — Podhale | Tatry Marketing">
+<meta name="twitter:description" content="Agencja SEO z Podhala. Pozycjonowanie lokalne, szybkie strony WWW i Google Ads dla firm z Zakopanego, Nowego Targu i okolic. Bezpłatna analiza.">
+<meta name="twitter:image" content="https://tatrymarketing.pl/assets/img/og-default.png">
+<meta name="twitter:image:alt" content="Tatry Marketing — Pozycjonowanie i strony internetowe dla firm z Podhala">
+
+<!-- ===== Ikony i motyw ===== -->
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0f2a44">
+
+<!-- ===== Zasoby ===== -->
+<!--
+  Fonty i style leżą na tej samej domenie, więc nie ma potrzeby preconnect.
+  Preload dotyczy wyłącznie podzbioru latin obu krojów — to on renderuje
+  pierwszy widoczny tekst (LCP). Podzbiór latin-ext przeglądarka dobierze
+  sama, gdy natrafi na polskie znaki diakrytyczne.
+-->
+<link rel="preload" href="/assets/fonts/inter-var-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/sora-var-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/fonts.css">
+<link rel="stylesheet" href="/assets/css/style.css">
+<script src="/assets/js/main.js" defer></script>
+
+<!-- ===== Dane strukturalne ===== -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": [
+        "ProfessionalService",
+        "Organization"
+      ],
+      "@id": "https://tatrymarketing.pl/#organizacja",
+      "name": "Tatry Marketing",
+      "legalName": "Tatry Marketing Sp. z o.o.",
+      "url": "https://tatrymarketing.pl/",
+      "description": "Tatry Marketing — agencja SEO i tworzenia stron internetowych działająca na terenie Podhala. Pozycjonowanie lokalne, strony WWW, audyty SEO i kampanie Google Ads.",
+      "slogan": "Pozycjonowanie i strony internetowe dla firm z Podhala",
+      "foundingDate": "2016",
+      "telephone": "+48 500 100 200",
+      "email": "kontakt@tatrymarketing.pl",
+      "vatID": "PL0000000000",
+      "priceRange": "$$",
+      "logo": {
+        "@type": "ImageObject",
+        "@id": "https://tatrymarketing.pl/#logo",
+        "url": "https://tatrymarketing.pl/assets/img/logo.svg",
+        "contentUrl": "https://tatrymarketing.pl/assets/img/logo.svg",
+        "width": 512,
+        "height": 512,
+        "caption": "Tatry Marketing"
+      },
+      "image": "https://tatrymarketing.pl/assets/img/og-default.png",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "ul. Krupówki 12/3",
+        "addressLocality": "Zakopane",
+        "postalCode": "34-500",
+        "addressRegion": "małopolskie",
+        "addressCountry": "PL"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 49.29899,
+        "longitude": 19.94966
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday"
+          ],
+          "opens": "08:00",
+          "closes": "16:00"
+        }
+      ],
+      "areaServed": [
+        {
+          "@type": "City",
+          "name": "Zakopane"
+        },
+        {
+          "@type": "City",
+          "name": "Nowy Targ"
+        },
+        {
+          "@type": "City",
+          "name": "Rabka-Zdrój"
+        },
+        {
+          "@type": "City",
+          "name": "Nowy Sącz"
+        },
+        {
+          "@type": "City",
+          "name": "Biały Dunajec"
+        },
+        {
+          "@type": "City",
+          "name": "Poronin"
+        },
+        {
+          "@type": "City",
+          "name": "Bukowina Tatrzańska"
+        },
+        {
+          "@type": "City",
+          "name": "Kościelisko"
+        },
+        {
+          "@type": "City",
+          "name": "Czarny Dunajec"
+        },
+        {
+          "@type": "City",
+          "name": "Szaflary"
+        },
+        {
+          "@type": "City",
+          "name": "powiat nowotarski"
+        },
+        {
+          "@type": "City",
+          "name": "Chochołów"
+        },
+        {
+          "@type": "City",
+          "name": "Kraków"
+        },
+        {
+          "@type": "City",
+          "name": "Myślenice"
+        }
+      ],
+      "knowsLanguage": [
+        "pl-PL"
+      ],
+      "sameAs": [
+        "https://www.facebook.com/tatrymarketing",
+        "https://www.linkedin.com/company/tatrymarketing",
+        "https://www.instagram.com/tatrymarketing"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+48 500 100 200",
+        "email": "kontakt@tatrymarketing.pl",
+        "contactType": "sprzedaż",
+        "areaServed": "PL",
+        "availableLanguage": [
+          "Polish"
+        ]
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://tatrymarketing.pl/#witryna",
+      "url": "https://tatrymarketing.pl/",
+      "name": "Tatry Marketing",
+      "description": "Pozycjonowanie i strony internetowe dla firm z Podhala",
+      "publisher": {
+        "@id": "https://tatrymarketing.pl/#organizacja"
+      },
+      "inLanguage": "pl-PL"
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://tatrymarketing.pl/#strona",
+      "url": "https://tatrymarketing.pl/",
+      "name": "Pozycjonowanie i strony WWW — Podhale | Tatry Marketing",
+      "description": "Agencja SEO z Podhala. Pozycjonowanie lokalne, szybkie strony WWW i Google Ads dla firm z Zakopanego, Nowego Targu i okolic. Bezpłatna analiza.",
+      "isPartOf": {
+        "@id": "https://tatrymarketing.pl/#witryna"
+      },
+      "about": {
+        "@id": "https://tatrymarketing.pl/#organizacja"
+      },
+      "inLanguage": "pl-PL"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://tatrymarketing.pl/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Ile trwa, zanim pozycjonowanie zacznie dawać efekty?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Pierwsze ruchy w rankingu widać zwykle po 4–8 tygodniach, a realny wzrost liczby zapytań po 3–6 miesiącach. Tempo zależy od trzech rzeczy: wieku domeny, stanu technicznego strony i konkurencji na danej frazie. Fraza „nocleg Zakopane\" to wieloletnia walka z portalami rezerwacyjnymi — „pokoje z widokiem na Giewont Kościelisko\" potrafi wejść na pierwszą stronę w kwartał. Dlatego zaczynamy od fraz, które da się wygrać, a dopiero z tego zbudowanego zaplecza atakujemy te najtrudniejsze."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Czy pozycjonowanie ma sens dla małego pensjonatu z kilkoma pokojami?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ma — i to często większy niż dla dużego obiektu. Mały pensjonat nie musi wygrywać z Booking.com na ogólne frazy. Wystarczy, że będzie pierwszy na zapytania precyzyjne: „pensjonat z parkingiem Białka Tatrzańska\" , „nocleg dla rodziny z psem Bukowina\" . To zapytania z niską konkurencją i bardzo wysoką intencją zakupową. Do tego każda rezerwacja bezpośrednia to 15–20% prowizji, której nie oddajesz portalowi — przy kilkunastu rezerwacjach miesięcznie SEO zwraca się z samej oszczędności na prowizjach."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Czym różnicie się od agencji z Krakowa czy Warszawy?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Znajomością rynku, na którym pracujecie. Wiemy, że sezon na Podhalu ma dwa szczyty (ferie i lato) i że kampanie trzeba rozgrzewać z wyprzedzeniem, a nie w grudniu. Wiemy, czym różni się ruch szukający „domków\" od tego szukającego „apartamentów\". Rozumiemy odmianę nazw miejscowości, na której algorytmy potrafią się wyłożyć — „w Zakopanem\" , nie „w Zakopanym\" . I możemy przyjechać do Was na spotkanie, zamiast prowadzić współpracę wyłącznie mailem."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Ile kosztuje pozycjonowanie i od czego zależy cena?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Stała opieka SEO zaczyna się u nas od 1 500 zł netto miesięcznie dla firmy działającej w jednej miejscowości. Cena rośnie wraz z liczbą fraz, obszarem działania i konkurencyjnością branży. Nie pobieramy opłat za „wejście na pierwszą stronę\" liczonych od pozycji — to model, który zachęca agencje do windowania fraz bez ruchu. Płacisz za konkretny zakres prac, który dostajesz opisany w umowie. Pełne widełki znajdziesz w cenniku ."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Czy podpisujecie umowy na 24 miesiące?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Nie. Standardowa umowa ma miesięczny okres wypowiedzenia, licząc od końca miesiąca rozliczeniowego. Uważamy, że agencja powinna utrzymywać klienta wynikami, a nie zapisami w umowie. Jedyny wyjątek to projekty, w których ponosimy duży koszt na starcie (np. budowa strony rozliczana w ratach) — wtedy zabezpieczamy sam koszt wytworzenia, nie okres współpracy."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Co się dzieje ze stroną, jeśli zakończymy współpracę?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Strona zostaje Wasza — razem z kodem, treściami, dostępami i domeną. Przekazujemy komplet loginów do hostingu, panelu, Google Analytics i Search Console. Nie stosujemy licencji na szablon, która wygasa po zakończeniu współpracy, ani nie trzymamy domeny na własnych danych. To praktyka, przez którą wiele firm w regionie straciło swoje strony przy zmianie wykonawcy, i nie chcemy mieć z nią nic wspólnego."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<a class="skip-link" href="#tresc">Przejdź do treści</a>
+
+<header class="site-header" data-nav-open="false">
+    <div class="wrap site-header__bar">
+      <a class="logo " href="/"><span class="sr-only">Strona główna — </span><svg class="logo__mark" viewBox="0 0 48 48" role="img" aria-label="Tatry Marketing — logo" focusable="false">
+  <rect width="48" height="48" rx="11" fill="#0f2a44"/>
+  <path d="M9 34.5 19 17l5.4 9.4L28.8 19 39 34.5z" fill="#3b9b72"/>
+  <path d="M19 17l5.4 9.4-3.1 5.4L15.9 26z" fill="#2e7d5b"/>
+  <path d="M28.8 19 33 26.2l-3.6 2.2-2.9-5z" fill="#e0a458"/>
+  <circle cx="35.5" cy="13.5" r="3.4" fill="#e0a458"/>
+</svg><span class="logo__text"><span class="logo__name">Tatry Marketing</span><span class="logo__tag">Agencja SEO i stron WWW</span></span></a>
+
+      <nav class="nav" id="nav-glowna" aria-label="Nawigacja główna">
+        <ul class="nav__list">
+          <li class="nav__item"><a class="nav__link" href="/" aria-current="page">Start</a></li>
+          <li class="nav__item nav__item--has-panel" data-open="false">
+            <a class="nav__link" href="/uslugi/">Usługi</a>
+            <button class="nav__toggle nav__link" type="button" aria-expanded="false" aria-controls="panel-usugi">
+              <span class="sr-only">Rozwiń listę usług</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" class="nav__toggle-icon"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="nav__panel" id="panel-usugi">
+              <ul>
+              <li><a class="nav__panel-link" href="/uslugi/pozycjonowanie-seo/">
+              <span class="nav__panel-title">Pozycjonowanie SEO</span>
+              <span class="nav__panel-desc">Wejście na pierwszą stronę Google</span>
+            </a></li>
+              <li><a class="nav__panel-link" href="/uslugi/strony-internetowe/">
+              <span class="nav__panel-title">Strony internetowe</span>
+              <span class="nav__panel-desc">Szybkie strony gotowe pod SEO</span>
+            </a></li>
+              <li><a class="nav__panel-link" href="/uslugi/audyt-seo/">
+              <span class="nav__panel-title">Audyt SEO</span>
+              <span class="nav__panel-desc">Diagnoza, co blokuje wzrost</span>
+            </a></li>
+              <li><a class="nav__panel-link" href="/uslugi/google-ads/">
+              <span class="nav__panel-title">Google Ads</span>
+              <span class="nav__panel-desc">Ruch płatny na start i w sezonie</span>
+            </a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav__item"><a class="nav__link" href="/realizacje/">Realizacje</a></li>
+          <li class="nav__item"><a class="nav__link" href="/cennik/">Cennik</a></li>
+          <li class="nav__item"><a class="nav__link" href="/o-nas/">O nas</a></li>
+          <li class="nav__item"><a class="nav__link" href="/blog/">Blog</a></li>
+          <li class="nav__item"><a class="nav__link" href="/kontakt/">Kontakt</a></li>
+        </ul>
+        <div class="nav__mobile-cta">
+          <a class="btn btn--ghost" href="tel:+48500100200"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/></svg> +48 500 100 200</a>
+          <a class="btn btn--primary" href="/kontakt/">Bezpłatna wycena</a>
+        </div>
+      </nav>
+
+      <div class="header-cta">
+        <a class="header-phone" href="tel:+48500100200"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/></svg> +48 500 100 200</a>
+        <a class="btn btn--primary" href="/kontakt/">Bezpłatna wycena</a>
+      </div>
+
+      <button class="burger" type="button" aria-expanded="false" aria-controls="nav-glowna" aria-label="Otwórz menu">
+        <span class="burger__box">
+          <span class="burger__line"></span>
+          <span class="burger__line"></span>
+          <span class="burger__line"></span>
+        </span>
+      </button>
+    </div>
+  </header>
+
+<main id="tresc">
+
+<section class="hero">
+  <svg class="hero__range" viewBox="0 0 1440 220" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+    <path d="M0 220V150l120-46 90 32 110-70 96 58 118-96 104 74 92-52 130 84 88-40 122 66 96-30 74 26v64z" fill="#0b1f33" opacity=".55"/>
+    <path d="M0 220v-38l150-58 110 40 120-64 130 70 110-84 120 92 110-54 140 76 110-38 140 58 100-24v24z" fill="#071726" opacity=".8"/>
+  </svg>
+  <div class="wrap hero__inner">
+
+    <div>
+      <p class="eyebrow">Agencja SEO i stron WWW z Podhala</p>
+      <h1>Twoi klienci szukają Cię w Google. <em>Znajdują konkurencję.</em></h1>
+      <p class="hero__lead">
+        Pozycjonujemy firmy z Podhala na frazy, które realnie przynoszą telefony
+        i rezerwacje — nie na te, które ładnie wyglądają w raporcie.
+        Budujemy też strony, które ładują się w ułamku sekundy i od pierwszego
+        dnia są przygotowane pod SEO.
+      </p>
+
+      <div class="btn-row">
+        <a class="btn btn--amber" href="/kontakt/">Zamów bezpłatną analizę</a>
+        <a class="btn btn--ghost-light" href="/realizacje/">Zobacz nasze realizacje</a>
+      </div>
+
+      <div class="hero__badges">
+        <span class="hero__badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> Spotkania na miejscu, nie tylko przez maila</span>
+        <span class="hero__badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"/><path d="m21 3 1 11h-2"/><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"/><path d="M3 4h8"/></svg> Miesięczny okres wypowiedzenia</span>
+        <span class="hero__badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1Z"/></svg> Strona i domena zostają Twoje</span>
+      </div>
+    </div>
+
+    <aside class="hero__panel" aria-labelledby="panel-tytul">
+      <p class="hero__panel-title" id="panel-tytul">Co zwykle znajdujemy w analizie</p>
+      <div class="metric">
+        <span class="metric__value">68%</span>
+        <span class="metric__label">stron w regionie ładuje się na telefonie dłużej niż 3 sekundy</span>
+      </div>
+      <div class="metric">
+        <span class="metric__value">4 na 5</span>
+        <span class="metric__label">wizytówek Google ma niepełne dane lub złą kategorię</span>
+      </div>
+      <div class="metric">
+        <span class="metric__value">0</span>
+        <span class="metric__label">tyle podstron pod frazy lokalne ma typowa strona pensjonatu</span>
+      </div>
+      <p style="font-size:.8125rem;color:rgba(255,255,255,.5);margin-top:1.25rem">
+        Obserwacje z audytów firm z powiatu tatrzańskiego i nowotarskiego.
+      </p>
+    </aside>
+
+  </div>
+</section>
+
+<!-- ===== Problem ===== -->
+<section class="section">
+  <div class="wrap">
+    <div class="split">
+      <div>
+        <div class="head">
+      <p class="eyebrow">Dlaczego strona nie sprzedaje</p>
+      <h2>Ładna strona to nie to samo co strona, którą da się znaleźć</h2>
+      
+    </div>
+        <p>
+          Większość firm z Podhala ma stronę. Problem w tym, że powstała raz,
+          kilka lat temu, i od tamtej pory nikt jej nie dotknął. Google patrzy
+          wtedy na trzy rzeczy — i zwykle wszystkie trzy wypadają źle.
+        </p>
+        <ul class="checklist">
+          <li><strong>Strona jest wolna na telefonie</strong> Ponad połowa ruchu w turystyce to komórki. Jeśli strona ładuje się cztery sekundy, część odwiedzających wraca do wyników zanim zobaczy zdjęcia.</li>
+          <li><strong>Nie ma treści pod to, czego ludzie szukają</strong> Jedna podstrona „Oferta" nie wygra z konkurentem, który ma osobną stronę dla każdej usługi i każdej miejscowości.</li>
+          <li><strong>Wizytówka Google żyje własnym życiem</strong> Błędne godziny, brak kategorii, zero zdjęć i odpowiedzi na opinie. A to ona decyduje o widoczności w mapach.</li>
+        </ul>
+        <div class="btn-row">
+          <a class="btn btn--primary" href="/uslugi/audyt-seo/">Sprawdź, co blokuje Twoją stronę</a>
+        </div>
+      </div>
+
+      <div>
+        <div class="stats">
+      <div class="stat">
+        <p class="stat__value">46%</p>
+        <p class="stat__label">wyszukiwań w Google ma intencję lokalną</p>
+      </div>
+      <div class="stat">
+        <p class="stat__value">3 s</p>
+        <p class="stat__label">po tylu sekundach ładowania traci się połowę wejść z komórki</p>
+      </div>
+      <div class="stat">
+        <p class="stat__value">#1–3</p>
+        <p class="stat__label">trzy pierwsze wyniki zbierają większość kliknięć</p>
+      </div>
+      <div class="stat">
+        <p class="stat__value">15–20%</p>
+        <p class="stat__label">tyle prowizji oddajesz portalowi za każdą rezerwację</p>
+      </div>
+    </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Usługi ===== -->
+<section class="section section--snow" aria-labelledby="uslugi-tytul">
+  <div class="wrap">
+    <div class="head head--center">
+      <p class="eyebrow">Co robimy</p>
+      <h2 id="uslugi-tytul">Cztery rzeczy, które robimy dobrze</h2>
+      <p class="lead">Nie zajmujemy się wszystkim. Skupiamy się na tym, co realnie wpływa na to, ilu klientów znajdzie Cię w wyszukiwarce.</p>
+    </div>
+    <div class="grid grid--4">
+      <article class="card card--hover">
+        <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M22 7 13.5 15.5 8.5 10.5 2 17"/><path d="M16 7h6v6"/></svg></div>
+        <h3><a href="/uslugi/pozycjonowanie-seo/" style="text-decoration:none;color:inherit">Pozycjonowanie SEO</a></h3>
+        <p>Prowadzimy firmę na pierwszą stronę Google na frazy, których naprawdę szukają Twoi klienci — lokalnie i w całej Polsce.</p>
+        <a class="card__link" href="/uslugi/pozycjonowanie-seo/">
+          Zobacz szczegóły <span class="sr-only">usługi Pozycjonowanie SEO</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </article>
+      <article class="card card--hover">
+        <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></svg></div>
+        <h3><a href="/uslugi/strony-internetowe/" style="text-decoration:none;color:inherit">Strony internetowe</a></h3>
+        <p>Projektujemy i kodujemy strony, które ładują się w ułamku sekundy i od pierwszego dnia są przygotowane pod pozycjonowanie.</p>
+        <a class="card__link" href="/uslugi/strony-internetowe/">
+          Zobacz szczegóły <span class="sr-only">usługi Strony internetowe</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </article>
+      <article class="card card--hover">
+        <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div>
+        <h3><a href="/uslugi/audyt-seo/" style="text-decoration:none;color:inherit">Audyt SEO</a></h3>
+        <p>Sprawdzamy stronę pod kątem technicznym, treściowym i linkowym, a wynik dostajesz jako listę zadań uszeregowaną według wpływu na wyniki.</p>
+        <a class="card__link" href="/uslugi/audyt-seo/">
+          Zobacz szczegóły <span class="sr-only">usługi Audyt SEO</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </article>
+      <article class="card card--hover">
+        <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
+        <h3><a href="/uslugi/google-ads/" style="text-decoration:none;color:inherit">Google Ads</a></h3>
+        <p>Kampanie, które dowożą zapytania od pierwszego tygodnia — zanim pozycjonowanie nabierze rozpędu i w szczycie sezonu.</p>
+        <a class="card__link" href="/uslugi/google-ads/">
+          Zobacz szczegóły <span class="sr-only">usługi Google Ads</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </article>
+    </div>
+    <div class="btn-row btn-row--center">
+      <a class="btn btn--ghost" href="/uslugi/">Poznaj pełen zakres usług</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Proces ===== -->
+<section class="section" aria-labelledby="proces-tytul">
+  <div class="wrap">
+    <div class="head head--center">
+      <p class="eyebrow">Jak pracujemy</p>
+      <h2 id="proces-tytul">Od pierwszej rozmowy do pierwszych efektów</h2>
+      <p class="lead">Bez tajemnic i bez „magii SEO". Na każdym etapie wiesz, co robimy i po co.</p>
+    </div>
+    <div class="grid grid--4">
+      <article class="step">
+        <p class="step__num" aria-hidden="true">1</p>
+        <h3><span class="sr-only">Krok 1: </span>Rozmowa i analiza</h3>
+        <p>Sprawdzamy Twoją stronę, wizytówkę i trzech konkurentów. Dowiadujemy się, na czym Ci zależy: na sezonie, na kliencie spoza sezonu, a może na konkretnej usłudze.</p>
+      </article>
+      <article class="step">
+        <p class="step__num" aria-hidden="true">2</p>
+        <h3><span class="sr-only">Krok 2: </span>Plan i wycena</h3>
+        <p>Dostajesz listę zadań uszeregowaną według wpływu na wyniki, wraz z terminami i ceną. Bez ukrytych pozycji i bez pakietów, których nie da się rozliczyć.</p>
+      </article>
+      <article class="step">
+        <p class="step__num" aria-hidden="true">3</p>
+        <h3><span class="sr-only">Krok 3: </span>Wdrożenie</h3>
+        <p>Naprawiamy technikę, piszemy treści, porządkujemy wizytówkę i budujemy zaplecze linkowe. Pracujemy etapami, żeby efekty były widoczne po drodze, a nie dopiero na końcu.</p>
+      </article>
+      <article class="step">
+        <p class="step__num" aria-hidden="true">4</p>
+        <h3><span class="sr-only">Krok 4: </span>Raport i korekta</h3>
+        <p>Co miesiąc dostajesz krótki raport: co zrobiliśmy, co się zmieniło w pozycjach i ruchu, co robimy dalej. Bez stustronicowych plików PDF, których nikt nie czyta.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Obszar działania ===== -->
+<section class="section section--navy" aria-labelledby="obszar-tytul">
+  <div class="wrap">
+    <div class="split">
+      <div>
+        <div class="head">
+      <p class="eyebrow">Obszar działania</p>
+      <h2 id="obszar-tytul">Podhale znamy z autopsji, nie z mapy</h2>
+      <p class="lead">Obsługujemy firmy z całego regionu — od Zakopanego po Nowy Sącz. Do klientów z powiatu tatrzańskiego i nowotarskiego dojeżdżamy na spotkania.</p>
+    </div>
+        <div class="areas">
+      <a class="area-chip" href="/pozycjonowanie/zakopane/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> Zakopane</a>
+      <a class="area-chip" href="/pozycjonowanie/nowy-targ/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> Nowy Targ</a>
+      <a class="area-chip" href="/pozycjonowanie/rabka-zdroj/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> Rabka-Zdrój</a>
+      <a class="area-chip" href="/pozycjonowanie/nowy-sacz/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> Nowy Sącz</a>
+      <span class="area-chip area-chip--static"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> Biały Dunajec</span>
+      <span class="area-chip area-chip--static"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> Poronin</span>
+      <span class="area-chip area-chip--static"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> Bukowina Tatrzańska</span>
+      <span class="area-chip area-chip--static"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> Kościelisko</span>
+      <span class="area-chip area-chip--static"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> Czarny Dunajec</span>
+      <span class="area-chip area-chip--static"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> Szaflary</span>
+      <span class="area-chip area-chip--static"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> powiat nowotarski</span>
+      <span class="area-chip area-chip--static"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> Chochołów</span>
+      <span class="area-chip area-chip--static"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> Kraków</span>
+      <span class="area-chip area-chip--static"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> Myślenice</span>
+    </div>
+      </div>
+      <div>
+        <h3>Dla kogo pracujemy najczęściej</h3>
+        <ul class="checklist">
+          <li><strong>Baza noclegowa</strong> Pensjonaty, domki, apartamenty i hotele, które chcą więcej rezerwacji bezpośrednich zamiast oddawać prowizję portalom.</li>
+          <li><strong>Gastronomia i atrakcje</strong> Restauracje, karczmy, wypożyczalnie sprzętu, szkoły narciarskie, parki linowe i przewodnicy.</li>
+          <li><strong>Usługi i rzemiosło</strong> Firmy budowlane, ciesielskie, instalacyjne i gabinety, dla których liczy się telefon z okolicy, a nie ruch z całej Polski.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Opinie ===== -->
+<section class="section section--snow" aria-labelledby="opinie-tytul">
+  <div class="wrap">
+    <div class="head head--center">
+      <p class="eyebrow">Opinie klientów</p>
+      <h2 id="opinie-tytul">Co mówią firmy, z którymi pracujemy</h2>
+      
+    </div>
+    <div class="grid grid--3">
+      <figure class="quote">
+        <div class="quote__stars" role="img" aria-label="Ocena 5 na 5"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 2.5l2.92 5.92 6.53.95-4.72 4.6 1.11 6.5L12 17.42l-5.84 3.07 1.11-6.5-4.72-4.6 6.53-.95z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 2.5l2.92 5.92 6.53.95-4.72 4.6 1.11 6.5L12 17.42l-5.84 3.07 1.11-6.5-4.72-4.6 6.53-.95z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 2.5l2.92 5.92 6.53.95-4.72 4.6 1.11 6.5L12 17.42l-5.84 3.07 1.11-6.5-4.72-4.6 6.53-.95z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 2.5l2.92 5.92 6.53.95-4.72 4.6 1.11 6.5L12 17.42l-5.84 3.07 1.11-6.5-4.72-4.6 6.53-.95z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 2.5l2.92 5.92 6.53.95-4.72 4.6 1.11 6.5L12 17.42l-5.84 3.07 1.11-6.5-4.72-4.6 6.53-.95z"/></svg></div>
+        <blockquote class="quote__text"><p>Przez dwa lata płaciliśmy agencji z Krakowa za raporty, których nikt u nas nie rozumiał. Tutaj po pierwszym spotkaniu dostaliśmy listę rzeczy do naprawienia napisaną po ludzku. Rezerwacje bezpośrednie wzrosły na tyle, że ograniczyliśmy pokoje wystawiane na portalach.</p></blockquote>
+        <figcaption class="quote__author">
+          <span class="quote__avatar" aria-hidden="true">AG</span>
+          <span>
+            <span class="quote__name">Anna Gąsienica</span>
+            <span class="quote__role">Pensjonat pod Reglami, Zakopane</span>
+          </span>
+        </figcaption>
+      </figure>
+      <figure class="quote">
+        <div class="quote__stars" role="img" aria-label="Ocena 5 na 5"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 2.5l2.92 5.92 6.53.95-4.72 4.6 1.11 6.5L12 17.42l-5.84 3.07 1.11-6.5-4.72-4.6 6.53-.95z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 2.5l2.92 5.92 6.53.95-4.72 4.6 1.11 6.5L12 17.42l-5.84 3.07 1.11-6.5-4.72-4.6 6.53-.95z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 2.5l2.92 5.92 6.53.95-4.72 4.6 1.11 6.5L12 17.42l-5.84 3.07 1.11-6.5-4.72-4.6 6.53-.95z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 2.5l2.92 5.92 6.53.95-4.72 4.6 1.11 6.5L12 17.42l-5.84 3.07 1.11-6.5-4.72-4.6 6.53-.95z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 2.5l2.92 5.92 6.53.95-4.72 4.6 1.11 6.5L12 17.42l-5.84 3.07 1.11-6.5-4.72-4.6 6.53-.95z"/></svg></div>
+        <blockquote class="quote__text"><p>Nowa strona ładuje się szybciej niż stara wizytówka na Facebooku. Najważniejsze, że sam mogę dodać nowe terminy spływów bez dzwonienia do informatyka. Telefonów w maju mieliśmy dwa razy więcej niż rok wcześniej.</p></blockquote>
+        <figcaption class="quote__author">
+          <span class="quote__avatar" aria-hidden="true">MB</span>
+          <span>
+            <span class="quote__name">Marcin Bafia</span>
+            <span class="quote__role">Spływy i wypożyczalnia, Nowy Targ</span>
+          </span>
+        </figcaption>
+      </figure>
+      <figure class="quote">
+        <div class="quote__stars" role="img" aria-label="Ocena 5 na 5"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 2.5l2.92 5.92 6.53.95-4.72 4.6 1.11 6.5L12 17.42l-5.84 3.07 1.11-6.5-4.72-4.6 6.53-.95z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 2.5l2.92 5.92 6.53.95-4.72 4.6 1.11 6.5L12 17.42l-5.84 3.07 1.11-6.5-4.72-4.6 6.53-.95z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 2.5l2.92 5.92 6.53.95-4.72 4.6 1.11 6.5L12 17.42l-5.84 3.07 1.11-6.5-4.72-4.6 6.53-.95z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 2.5l2.92 5.92 6.53.95-4.72 4.6 1.11 6.5L12 17.42l-5.84 3.07 1.11-6.5-4.72-4.6 6.53-.95z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 2.5l2.92 5.92 6.53.95-4.72 4.6 1.11 6.5L12 17.42l-5.84 3.07 1.11-6.5-4.72-4.6 6.53-.95z"/></svg></div>
+        <blockquote class="quote__text"><p>Zależało nam na klientach spoza sezonu i to się udało. Wchodzimy wysoko na frazy o konferencjach i imprezach firmowych, o których wcześniej w ogóle nie myśleliśmy. Raporty są krótkie i widać w nich, co zrobiono w danym miesiącu.</p></blockquote>
+        <figcaption class="quote__author">
+          <span class="quote__avatar" aria-hidden="true">KS</span>
+          <span>
+            <span class="quote__name">Katarzyna Stoch</span>
+            <span class="quote__role">Hotel i restauracja, Rabka-Zdrój</span>
+          </span>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Blog ===== -->
+<section class="section" aria-labelledby="blog-tytul">
+  <div class="wrap">
+    <div class="head head--center">
+      <p class="eyebrow">Baza wiedzy</p>
+      <h2 id="blog-tytul">Poradniki dla firm z regionu</h2>
+      <p class="lead">Piszemy o tym, co możesz wdrożyć sam — nawet jeśli nigdy nie zdecydujesz się na współpracę z agencją.</p>
+    </div>
+    <div class="posts">
+      <article class="post-card">
+        <div class="post-card__cover"><svg viewBox="0 0 400 225" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+      <rect width="400" height="225" fill="#0f2a44"/>
+      <circle cx="344" cy="44" r="26" fill="#e0a458" opacity=".85"/>
+      <path d="M0 225V144l48 -24l76 38l67.2 -58.8l43.2 24l106.39999999999999 -47.5l84 42l90 -40V225z" fill="#3b9b72" opacity=".55"/>
+      <path d="M0 225V184l121.60000000000001 -54.28571428571429l52.800000000000004 16l63 -42l152 63.333333333333336l120 -30V225z" fill="#16395b"/>
+    </svg></div>
+        <div class="post-card__body">
+          <div class="post-card__meta">
+            <span class="post-card__cat">SEO lokalne</span>
+            <time datetime="2026-06-14">14 czerwca 2026</time>
+            <span>·</span>
+            <span>11 min czytania</span>
+          </div>
+          <h3><a href="/blog/pozycjonowanie-pensjonatu-w-zakopanem/">Jak wypozycjonować pensjonat w Zakopanem i przestać oddawać prowizję portalom</a></h3>
+          <p>Booking zabiera 15–20% od każdej rezerwacji. Pokazujemy krok po kroku, jak przechwycić część tego ruchu bezpośrednio z wyszukiwarki — bez walki o frazy, których i tak nie wygrasz.</p>
+          <a class="card__link" href="/blog/pozycjonowanie-pensjonatu-w-zakopanem/">Czytaj dalej<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+        </div>
+      </article>
+      <article class="post-card">
+        <div class="post-card__cover"><svg viewBox="0 0 400 225" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+      <rect width="400" height="225" fill="#0f2a44"/>
+      <circle cx="349" cy="44" r="26" fill="#e0a458" opacity=".85"/>
+      <path d="M0 225V159l118 -59l84 42l94.4 -82.6l106.2 59l117.6 -52.5l118 59l90 -40V225z" fill="#3b9b72" opacity=".55"/>
+      <path d="M0 225V189l134.4 -60.00000000000001l129.8 39.333333333333336l88.5 -59l168 70l120 -30V225z" fill="#16395b"/>
+    </svg></div>
+        <div class="post-card__body">
+          <div class="post-card__meta">
+            <span class="post-card__cat">Strony WWW</span>
+            <time datetime="2026-05-08">8 maja 2026</time>
+            <span>·</span>
+            <span>9 min czytania</span>
+          </div>
+          <h3><a href="/blog/ile-kosztuje-strona-internetowa/">Ile kosztuje strona internetowa w 2026 roku? Uczciwe widełki i co jest w cenie</a></h3>
+          <p>Ta sama strona bywa wyceniana na 2 000 zł i na 20 000 zł. Rozkładamy wycenę na czynniki pierwsze i pokazujemy, które oszczędności wracają potem jako koszt.</p>
+          <a class="card__link" href="/blog/ile-kosztuje-strona-internetowa/">Czytaj dalej<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+        </div>
+      </article>
+      <article class="post-card">
+        <div class="post-card__cover"><svg viewBox="0 0 400 225" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+      <rect width="400" height="225" fill="#0f2a44"/>
+      <circle cx="327" cy="42" r="26" fill="#e0a458" opacity=".85"/>
+      <path d="M0 225V147l54 -27l56 28l59.2 -51.8l48.6 27l78.39999999999999 -35l74 37l90 -40V225z" fill="#3b9b72" opacity=".55"/>
+      <path d="M0 225V182l89.60000000000001 -40l59.400000000000006 18l55.5 -37l112 46.66666666666667l120 -30V225z" fill="#16395b"/>
+    </svg></div>
+        <div class="post-card__body">
+          <div class="post-card__meta">
+            <span class="post-card__cat">SEO lokalne</span>
+            <time datetime="2026-04-02">2 kwietnia 2026</time>
+            <span>·</span>
+            <span>8 min czytania</span>
+          </div>
+          <h3><a href="/blog/wizytowka-google-firma-podhale/">Wizytówka Google dla firmy z Podhala — 12 ustawień, które zmieniają widoczność</a></h3>
+          <p>Wizytówka to najtańszy kanał widoczności lokalnej i jednocześnie najbardziej zaniedbany. Dwanaście ustawień, które da się poprawić w jedno popołudnie.</p>
+          <a class="card__link" href="/blog/wizytowka-google-firma-podhale/">Czytaj dalej<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="section section--snow" aria-labelledby="faq-tytul">
+  <div class="wrap">
+    <div class="head head--center">
+      <p class="eyebrow">Pytania i odpowiedzi</p>
+      <h2 id="faq-tytul">Zanim do nas napiszesz</h2>
+      <p class="lead">Sześć pytań, które słyszymy najczęściej na pierwszym spotkaniu.</p>
+    </div>
+    <div class="faq">
+      <details class="faq__item">
+        <summary class="faq__q">Ile trwa, zanim pozycjonowanie zacznie dawać efekty?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" class="faq__icon"><path d="M5 12h14"/><path d="M12 5v14"/></svg></summary>
+        <div class="faq__a"><p>Pierwsze ruchy w rankingu widać zwykle po 4–8 tygodniach, a realny wzrost liczby zapytań po 3–6 miesiącach. Tempo zależy od trzech rzeczy: wieku domeny, stanu technicznego strony i konkurencji na danej frazie. Fraza <strong>„nocleg Zakopane"</strong> to wieloletnia walka z portalami rezerwacyjnymi — <strong>„pokoje z widokiem na Giewont Kościelisko"</strong> potrafi wejść na pierwszą stronę w kwartał. Dlatego zaczynamy od fraz, które da się wygrać, a dopiero z tego zbudowanego zaplecza atakujemy te najtrudniejsze.</p></div>
+      </details>
+      <details class="faq__item">
+        <summary class="faq__q">Czy pozycjonowanie ma sens dla małego pensjonatu z kilkoma pokojami?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" class="faq__icon"><path d="M5 12h14"/><path d="M12 5v14"/></svg></summary>
+        <div class="faq__a"><p>Ma — i to często większy niż dla dużego obiektu. Mały pensjonat nie musi wygrywać z Booking.com na ogólne frazy. Wystarczy, że będzie pierwszy na zapytania precyzyjne: <em>„pensjonat z parkingiem Białka Tatrzańska"</em>, <em>„nocleg dla rodziny z psem Bukowina"</em>. To zapytania z niską konkurencją i bardzo wysoką intencją zakupową. Do tego każda rezerwacja bezpośrednia to 15–20% prowizji, której nie oddajesz portalowi — przy kilkunastu rezerwacjach miesięcznie SEO zwraca się z samej oszczędności na prowizjach.</p></div>
+      </details>
+      <details class="faq__item">
+        <summary class="faq__q">Czym różnicie się od agencji z Krakowa czy Warszawy?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" class="faq__icon"><path d="M5 12h14"/><path d="M12 5v14"/></svg></summary>
+        <div class="faq__a"><p>Znajomością rynku, na którym pracujecie. Wiemy, że sezon na Podhalu ma dwa szczyty (ferie i lato) i że kampanie trzeba rozgrzewać z wyprzedzeniem, a nie w grudniu. Wiemy, czym różni się ruch szukający „domków" od tego szukającego „apartamentów". Rozumiemy odmianę nazw miejscowości, na której algorytmy potrafią się wyłożyć — <em>„w Zakopanem"</em>, nie <em>„w Zakopanym"</em>. I możemy przyjechać do Was na spotkanie, zamiast prowadzić współpracę wyłącznie mailem.</p></div>
+      </details>
+      <details class="faq__item">
+        <summary class="faq__q">Ile kosztuje pozycjonowanie i od czego zależy cena?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" class="faq__icon"><path d="M5 12h14"/><path d="M12 5v14"/></svg></summary>
+        <div class="faq__a"><p>Stała opieka SEO zaczyna się u nas od <strong>1 500 zł netto miesięcznie</strong> dla firmy działającej w jednej miejscowości. Cena rośnie wraz z liczbą fraz, obszarem działania i konkurencyjnością branży. Nie pobieramy opłat za „wejście na pierwszą stronę" liczonych od pozycji — to model, który zachęca agencje do windowania fraz bez ruchu. Płacisz za konkretny zakres prac, który dostajesz opisany w umowie. Pełne widełki znajdziesz w <a href="/cennik/">cenniku</a>.</p></div>
+      </details>
+      <details class="faq__item">
+        <summary class="faq__q">Czy podpisujecie umowy na 24 miesiące?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" class="faq__icon"><path d="M5 12h14"/><path d="M12 5v14"/></svg></summary>
+        <div class="faq__a"><p>Nie. Standardowa umowa ma miesięczny okres wypowiedzenia, licząc od końca miesiąca rozliczeniowego. Uważamy, że agencja powinna utrzymywać klienta wynikami, a nie zapisami w umowie. Jedyny wyjątek to projekty, w których ponosimy duży koszt na starcie (np. budowa strony rozliczana w ratach) — wtedy zabezpieczamy sam koszt wytworzenia, nie okres współpracy.</p></div>
+      </details>
+      <details class="faq__item">
+        <summary class="faq__q">Co się dzieje ze stroną, jeśli zakończymy współpracę?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" class="faq__icon"><path d="M5 12h14"/><path d="M12 5v14"/></svg></summary>
+        <div class="faq__a"><p>Strona zostaje Wasza — razem z kodem, treściami, dostępami i domeną. Przekazujemy komplet loginów do hostingu, panelu, Google Analytics i Search Console. Nie stosujemy licencji na szablon, która wygasa po zakończeniu współpracy, ani nie trzymamy domeny na własnych danych. To praktyka, przez którą wiele firm w regionie straciło swoje strony przy zmianie wykonawcy, i nie chcemy mieć z nią nic wspólnego.</p></div>
+      </details>
+    </div>
+    <div class="btn-row btn-row--center">
+      <a class="btn btn--ghost" href="/faq/">Zobacz wszystkie pytania</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="cta-band">
+      <h2>Sprawdźmy, ile klientów tracisz w wyszukiwarce</h2>
+      <p>Bezpłatna analiza widoczności Twojej strony i trzech konkurentów z regionu. Bez zobowiązań — dostajesz konkretną listę tego, co blokuje Cię w Google, nawet jeśli nie zdecydujesz się na współpracę.</p>
+      <div class="btn-row btn-row--center">
+        <a class="btn btn--amber" href="/kontakt/">Zamów bezpłatną analizę</a>
+        <a class="btn btn--ghost-light" href="tel:+48500100200">Zadzwoń: +48 500 100 200</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-grid">
+
+        <div class="footer-brand">
+          <a class="logo logo--footer" href="/"><span class="sr-only">Strona główna — </span><svg class="logo__mark" viewBox="0 0 48 48" role="img" aria-label="Tatry Marketing — logo" focusable="false">
+  <rect width="48" height="48" rx="11" fill="#0f2a44"/>
+  <path d="M9 34.5 19 17l5.4 9.4L28.8 19 39 34.5z" fill="#3b9b72"/>
+  <path d="M19 17l5.4 9.4-3.1 5.4L15.9 26z" fill="#2e7d5b"/>
+  <path d="M28.8 19 33 26.2l-3.6 2.2-2.9-5z" fill="#e0a458"/>
+  <circle cx="35.5" cy="13.5" r="3.4" fill="#e0a458"/>
+</svg><span class="logo__text"><span class="logo__name">Tatry Marketing</span><span class="logo__tag">Agencja SEO i stron WWW</span></span></a>
+          <p>Agencja SEO i tworzenia stron internetowych z Podhala. Pomagamy pensjonatom, restauracjom, wypożyczalniom i firmom usługowym zdobywać klientów z wyszukiwarki — przez cały rok, nie tylko w sezonie.</p>
+          <div class="social">
+          <a href="https://www.facebook.com/tatrymarketing" rel="noopener noreferrer me" target="_blank" aria-label="Tatry Marketing — facebook (otwiera się w nowej karcie)"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.89 1.1 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.45 2.89h-2.33v6.99A10 10 0 0 0 22 12Z"/></svg></a>
+          <a href="https://www.linkedin.com/company/tatrymarketing" rel="noopener noreferrer me" target="_blank" aria-label="Tatry Marketing — linkedin (otwiera się w nowej karcie)"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.03-1.85-3.03-1.85 0-2.14 1.45-2.14 2.94v5.66H9.35V9h3.41v1.56h.05a3.74 3.74 0 0 1 3.37-1.85c3.6 0 4.27 2.37 4.27 5.46zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12M7.12 20.45H3.56V9h3.56zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0"/></svg></a>
+          <a href="https://www.instagram.com/tatrymarketing" rel="noopener noreferrer me" target="_blank" aria-label="Tatry Marketing — instagram (otwiera się w nowej karcie)"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.3-1.46.72-2.13 1.38C1.35 2.68.93 3.35.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.3.79.72 1.46 1.38 2.13.67.66 1.34 1.08 2.13 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.3 1.46-.72 2.13-1.38.66-.67 1.08-1.34 1.38-2.13.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.3-.79-.72-1.46-1.38-2.13C21.32 1.35 20.65.93 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0m0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32M12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8m7.85-10.4a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0"/></svg></a>
+          </div>
+        </div>
+
+        <nav class="footer-col" aria-labelledby="stopka-uslugi">
+          <h2 class="footer-col__title" id="stopka-uslugi">Usługi</h2>
+          <ul>
+            <li><a href="/uslugi/pozycjonowanie-seo/">Pozycjonowanie SEO</a></li>
+            <li><a href="/uslugi/strony-internetowe/">Strony internetowe</a></li>
+            <li><a href="/uslugi/audyt-seo/">Audyt SEO</a></li>
+            <li><a href="/uslugi/google-ads/">Google Ads</a></li>
+            <li><a href="/cennik/">Cennik</a></li>
+          </ul>
+        </nav>
+
+        <nav class="footer-col" aria-labelledby="stopka-obszar">
+          <h2 class="footer-col__title" id="stopka-obszar">Obszar działania</h2>
+          <ul>
+            <li><a href="/pozycjonowanie/zakopane/">Pozycjonowanie Zakopane</a></li>
+            <li><a href="/pozycjonowanie/nowy-targ/">Pozycjonowanie Nowy Targ</a></li>
+            <li><a href="/pozycjonowanie/rabka-zdroj/">Pozycjonowanie Rabka-Zdrój</a></li>
+            <li><a href="/pozycjonowanie/nowy-sacz/">Pozycjonowanie Nowy Sącz</a></li>
+          </ul>
+        </nav>
+
+        <div class="footer-col">
+          <h2 class="footer-col__title">Kontakt</h2>
+          <ul>
+            <li><a href="tel:+48500100200">+48 500 100 200</a></li>
+            <li><a href="mailto:kontakt@tatrymarketing.pl">kontakt@tatrymarketing.pl</a></li>
+            <li>ul. Krupówki 12/3<br>34-500 Zakopane</li>
+            <li>poniedziałek – piątek, 8:00 – 16:00</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; <span data-year>2026</span> Tatry Marketing Sp. z o.o.. NIP PL0000000000. Wszelkie prawa zastrzeżone.</p>
+        <nav class="footer-legal" aria-label="Informacje prawne">
+          <a href="/polityka-prywatnosci/">Polityka prywatności</a>
+          <a href="/faq/">Pytania i odpowiedzi</a>
+          <a href="/o-nas/">O nas</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

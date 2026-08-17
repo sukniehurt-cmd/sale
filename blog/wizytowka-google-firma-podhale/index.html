@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- ===== Podstawowe znaczniki SEO ===== -->
+<title>Wizytówka Google — konfiguracja krok po kroku (Podhale)</title>
+<meta name="description" content="Jak skonfigurować wizytówkę Google, żeby firma z Podhala pojawiała się w mapach i wynikach lokalnych. 12 ustawień i najczęstsze błędy.">
+<link rel="canonical" href="https://tatrymarketing.pl/blog/wizytowka-google-firma-podhale/">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<meta name="author" content="Tatry Marketing">
+
+<!-- Zasięg geograficzny — wspiera dopasowanie do zapytań lokalnych -->
+<meta name="geo.region" content="PL-MA">
+<meta name="geo.placename" content="Zakopane">
+<meta name="geo.position" content="49.29899;19.94966">
+<meta name="ICBM" content="49.29899, 19.94966">
+
+<!-- ===== Open Graph (Facebook, LinkedIn, komunikatory) ===== -->
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://tatrymarketing.pl/blog/wizytowka-google-firma-podhale/">
+<meta property="og:title" content="Wizytówka Google dla firmy z Podhala — 12 ustawień, które zmieniają widoczność">
+<meta property="og:description" content="Jak skonfigurować wizytówkę Google, żeby firma z Podhala pojawiała się w mapach i wynikach lokalnych. 12 ustawień i najczęstsze błędy.">
+<meta property="og:image" content="https://tatrymarketing.pl/assets/img/og-blog.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="SEO lokalne — Wizytówka Google dla firmy z Podhala — 12 ustawień, które zmieniają widoczność">
+<meta property="og:site_name" content="Tatry Marketing">
+<meta property="og:locale" content="pl_PL">
+<meta property="article:published_time" content="2026-04-02">
+<meta property="article:modified_time" content="2026-06-30">
+<meta property="article:author" content="Michał Zubek">
+<meta property="article:section" content="SEO lokalne">
+
+<!-- ===== Twitter / X ===== -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Wizytówka Google dla firmy z Podhala — 12 ustawień, które zmieniają widoczność">
+<meta name="twitter:description" content="Jak skonfigurować wizytówkę Google, żeby firma z Podhala pojawiała się w mapach i wynikach lokalnych. 12 ustawień i najczęstsze błędy.">
+<meta name="twitter:image" content="https://tatrymarketing.pl/assets/img/og-blog.png">
+<meta name="twitter:image:alt" content="SEO lokalne — Wizytówka Google dla firmy z Podhala — 12 ustawień, które zmieniają widoczność">
+
+<!-- ===== Ikony i motyw ===== -->
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0f2a44">
+
+<!-- ===== Zasoby ===== -->
+<!--
+  Fonty i style leżą na tej samej domenie, więc nie ma potrzeby preconnect.
+  Preload dotyczy wyłącznie podzbioru latin obu krojów — to on renderuje
+  pierwszy widoczny tekst (LCP). Podzbiór latin-ext przeglądarka dobierze
+  sama, gdy natrafi na polskie znaki diakrytyczne.
+-->
+<link rel="preload" href="/assets/fonts/inter-var-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/sora-var-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/fonts.css">
+<link rel="stylesheet" href="/assets/css/style.css">
+<script src="/assets/js/main.js" defer></script>
+
+<!-- ===== Dane strukturalne ===== -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": [
+        "ProfessionalService",
+        "Organization"
+      ],
+      "@id": "https://tatrymarketing.pl/#organizacja",
+      "name": "Tatry Marketing",
+      "legalName": "Tatry Marketing Sp. z o.o.",
+      "url": "https://tatrymarketing.pl/",
+      "description": "Tatry Marketing — agencja SEO i tworzenia stron internetowych działająca na terenie Podhala. Pozycjonowanie lokalne, strony WWW, audyty SEO i kampanie Google Ads.",
+      "slogan": "Pozycjonowanie i strony internetowe dla firm z Podhala",
+      "foundingDate": "2016",
+      "telephone": "+48 500 100 200",
+      "email": "kontakt@tatrymarketing.pl",
+      "vatID": "PL0000000000",
+      "priceRange": "$$",
+      "logo": {
+        "@type": "ImageObject",
+        "@id": "https://tatrymarketing.pl/#logo",
+        "url": "https://tatrymarketing.pl/assets/img/logo.svg",
+        "contentUrl": "https://tatrymarketing.pl/assets/img/logo.svg",
+        "width": 512,
+        "height": 512,
+        "caption": "Tatry Marketing"
+      },
+      "image": "https://tatrymarketing.pl/assets/img/og-default.png",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "ul. Krupówki 12/3",
+        "addressLocality": "Zakopane",
+        "postalCode": "34-500",
+        "addressRegion": "małopolskie",
+        "addressCountry": "PL"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 49.29899,
+        "longitude": 19.94966
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday"
+          ],
+          "opens": "08:00",
+          "closes": "16:00"
+        }
+      ],
+      "areaServed": [
+        {
+          "@type": "City",
+          "name": "Zakopane"
+        },
+        {
+          "@type": "City",
+          "name": "Nowy Targ"
+        },
+        {
+          "@type": "City",
+          "name": "Rabka-Zdrój"
+        },
+        {
+          "@type": "City",
+          "name": "Nowy Sącz"
+        },
+        {
+          "@type": "City",
+          "name": "Biały Dunajec"
+        },
+        {
+          "@type": "City",
+          "name": "Poronin"
+        },
+        {
+          "@type": "City",
+          "name": "Bukowina Tatrzańska"
+        },
+        {
+          "@type": "City",
+          "name": "Kościelisko"
+        },
+        {
+          "@type": "City",
+          "name": "Czarny Dunajec"
+        },
+        {
+          "@type": "City",
+          "name": "Szaflary"
+        },
+        {
+          "@type": "City",
+          "name": "powiat nowotarski"
+        },
+        {
+          "@type": "City",
+          "name": "Chochołów"
+        },
+        {
+          "@type": "City",
+          "name": "Kraków"
+        },
+        {
+          "@type": "City",
+          "name": "Myślenice"
+        }
+      ],
+      "knowsLanguage": [
+        "pl-PL"
+      ],
+      "sameAs": [
+        "https://www.facebook.com/tatrymarketing",
+        "https://www.linkedin.com/company/tatrymarketing",
+        "https://www.instagram.com/tatrymarketing"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+48 500 100 200",
+        "email": "kontakt@tatrymarketing.pl",
+        "contactType": "sprzedaż",
+        "areaServed": "PL",
+        "availableLanguage": [
+          "Polish"
+        ]
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://tatrymarketing.pl/#witryna",
+      "url": "https://tatrymarketing.pl/",
+      "name": "Tatry Marketing",
+      "description": "Pozycjonowanie i strony internetowe dla firm z Podhala",
+      "publisher": {
+        "@id": "https://tatrymarketing.pl/#organizacja"
+      },
+      "inLanguage": "pl-PL"
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://tatrymarketing.pl/blog/wizytowka-google-firma-podhale/#strona",
+      "url": "https://tatrymarketing.pl/blog/wizytowka-google-firma-podhale/",
+      "name": "Wizytówka Google — konfiguracja krok po kroku (Podhale)",
+      "description": "Jak skonfigurować wizytówkę Google, żeby firma z Podhala pojawiała się w mapach i wynikach lokalnych. 12 ustawień i najczęstsze błędy.",
+      "isPartOf": {
+        "@id": "https://tatrymarketing.pl/#witryna"
+      },
+      "about": {
+        "@id": "https://tatrymarketing.pl/#organizacja"
+      },
+      "inLanguage": "pl-PL",
+      "dateModified": "2026-06-30",
+      "breadcrumb": {
+        "@id": "https://tatrymarketing.pl/blog/wizytowka-google-firma-podhale/#okruszki"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://tatrymarketing.pl/blog/wizytowka-google-firma-podhale/#okruszki",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Strona główna",
+          "item": "https://tatrymarketing.pl/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://tatrymarketing.pl/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Wizytówka Google dla firmy z Podhala — 12 ustawień, które zmieniają widoczność"
+        }
+      ]
+    },
+    {
+      "@type": "BlogPosting",
+      "@id": "https://tatrymarketing.pl/blog/wizytowka-google-firma-podhale/#artykul",
+      "headline": "Wizytówka Google dla firmy z Podhala — 12 ustawień, które zmieniają widoczność",
+      "description": "Jak skonfigurować wizytówkę Google, żeby firma z Podhala pojawiała się w mapach i wynikach lokalnych. 12 ustawień i najczęstsze błędy.",
+      "datePublished": "2026-04-02",
+      "dateModified": "2026-06-30",
+      "author": {
+        "@type": "Person",
+        "name": "Michał Zubek",
+        "worksFor": {
+          "@id": "https://tatrymarketing.pl/#organizacja"
+        }
+      },
+      "publisher": {
+        "@id": "https://tatrymarketing.pl/#organizacja"
+      },
+      "mainEntityOfPage": {
+        "@id": "https://tatrymarketing.pl/blog/wizytowka-google-firma-podhale/#strona"
+      },
+      "image": "https://tatrymarketing.pl/assets/img/og-default.png",
+      "articleSection": "SEO lokalne",
+      "wordCount": 837,
+      "inLanguage": "pl-PL",
+      "isAccessibleForFree": true
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<a class="skip-link" href="#tresc">Przejdź do treści</a>
+
+<header class="site-header" data-nav-open="false">
+    <div class="wrap site-header__bar">
+      <a class="logo " href="/"><span class="sr-only">Strona główna — </span><svg class="logo__mark" viewBox="0 0 48 48" role="img" aria-label="Tatry Marketing — logo" focusable="false">
+  <rect width="48" height="48" rx="11" fill="#0f2a44"/>
+  <path d="M9 34.5 19 17l5.4 9.4L28.8 19 39 34.5z" fill="#3b9b72"/>
+  <path d="M19 17l5.4 9.4-3.1 5.4L15.9 26z" fill="#2e7d5b"/>
+  <path d="M28.8 19 33 26.2l-3.6 2.2-2.9-5z" fill="#e0a458"/>
+  <circle cx="35.5" cy="13.5" r="3.4" fill="#e0a458"/>
+</svg><span class="logo__text"><span class="logo__name">Tatry Marketing</span><span class="logo__tag">Agencja SEO i stron WWW</span></span></a>
+
+      <nav class="nav" id="nav-glowna" aria-label="Nawigacja główna">
+        <ul class="nav__list">
+          <li class="nav__item"><a class="nav__link" href="/">Start</a></li>
+          <li class="nav__item nav__item--has-panel" data-open="false">
+            <a class="nav__link" href="/uslugi/">Usługi</a>
+            <button class="nav__toggle nav__link" type="button" aria-expanded="false" aria-controls="panel-usugi">
+              <span class="sr-only">Rozwiń listę usług</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" class="nav__toggle-icon"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="nav__panel" id="panel-usugi">
+              <ul>
+              <li><a class="nav__panel-link" href="/uslugi/pozycjonowanie-seo/">
+              <span class="nav__panel-title">Pozycjonowanie SEO</span>
+              <span class="nav__panel-desc">Wejście na pierwszą stronę Google</span>
+            </a></li>
+              <li><a class="nav__panel-link" href="/uslugi/strony-internetowe/">
+              <span class="nav__panel-title">Strony internetowe</span>
+              <span class="nav__panel-desc">Szybkie strony gotowe pod SEO</span>
+            </a></li>
+              <li><a class="nav__panel-link" href="/uslugi/audyt-seo/">
+              <span class="nav__panel-title">Audyt SEO</span>
+              <span class="nav__panel-desc">Diagnoza, co blokuje wzrost</span>
+            </a></li>
+              <li><a class="nav__panel-link" href="/uslugi/google-ads/">
+              <span class="nav__panel-title">Google Ads</span>
+              <span class="nav__panel-desc">Ruch płatny na start i w sezonie</span>
+            </a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav__item"><a class="nav__link" href="/realizacje/">Realizacje</a></li>
+          <li class="nav__item"><a class="nav__link" href="/cennik/">Cennik</a></li>
+          <li class="nav__item"><a class="nav__link" href="/o-nas/">O nas</a></li>
+          <li class="nav__item"><a class="nav__link" href="/blog/" aria-current="page">Blog</a></li>
+          <li class="nav__item"><a class="nav__link" href="/kontakt/">Kontakt</a></li>
+        </ul>
+        <div class="nav__mobile-cta">
+          <a class="btn btn--ghost" href="tel:+48500100200"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/></svg> +48 500 100 200</a>
+          <a class="btn btn--primary" href="/kontakt/">Bezpłatna wycena</a>
+        </div>
+      </nav>
+
+      <div class="header-cta">
+        <a class="header-phone" href="tel:+48500100200"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/></svg> +48 500 100 200</a>
+        <a class="btn btn--primary" href="/kontakt/">Bezpłatna wycena</a>
+      </div>
+
+      <button class="burger" type="button" aria-expanded="false" aria-controls="nav-glowna" aria-label="Otwórz menu">
+        <span class="burger__box">
+          <span class="burger__line"></span>
+          <span class="burger__line"></span>
+          <span class="burger__line"></span>
+        </span>
+      </button>
+    </div>
+  </header>
+
+<main id="tresc">
+
+<section class="pagehead">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Ścieżka nawigacyjna">
+      <ol class="crumbs__list">
+        <li><a href="/">Strona główna</a></li>
+        <li><a href="/blog/">Blog</a></li>
+        <li><span aria-current="page">Wizytówka Google dla firmy z Podhala — 12 ustawień, które zmieniają widoczność</span></li>
+      </ol>
+    </nav>
+    <div class="pagehead__inner">
+      <p class="eyebrow">SEO lokalne</p>
+      <h1>Wizytówka Google dla firmy z Podhala — 12 ustawień, które zmieniają widoczność</h1>
+      
+      <div class="article-meta">
+        <span>Michał Zubek</span>
+        <span class="article-meta__dot" aria-hidden="true">·</span>
+        <span>Opublikowano <time datetime="2026-04-02">2 kwietnia 2026</time></span>
+        <span class="article-meta__dot" aria-hidden="true">·</span>
+        <span>Aktualizacja <time datetime="2026-06-30">30 czerwca 2026</time></span>
+        <span class="article-meta__dot" aria-hidden="true">·</span>
+        <span>8 min czytania</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div style="display:grid;grid-template-columns:minmax(0,1fr);justify-items:center">
+      <div style="max-width:44rem;width:100%">
+
+        <nav class="toc" aria-labelledby="spis-tresci">
+          <p class="toc__title" id="spis-tresci">W tym artykule</p>
+          <ol>
+            <li><a href="#dlaczego">Dlaczego wizytówka bije stronę na głowę</a></li>
+            <li><a href="#ustawienia">12 ustawień po kolei</a></li>
+            <li><a href="#opinie">Opinie: jak zbierać i jak odpowiadać</a></li>
+            <li><a href="#bledy">Błędy, które kosztują pozycje</a></li>
+          </ol>
+        </nav>
+
+        <article class="prose" style="margin-top:2.5rem">
+          
+<p class="lead">
+  Wizytówka Google Business Profile to jedyne narzędzie marketingowe, które
+  jest darmowe, zajmuje popołudnie i potrafi w miesiąc zmienić liczbę telefonów.
+  A mimo to cztery na pięć wizytówek firm, które audytujemy w regionie,
+  ma niepełne dane albo źle dobraną kategorię.
+</p>
+
+<h2 id="dlaczego">Dlaczego wizytówka bije stronę na głowę</h2>
+
+<p>
+  Kiedy ktoś w Zakopanem wpisuje „wypożyczalnia nart", Google pokazuje najpierw
+  mapę z trzema firmami (tzw. <em>local pack</em>), a dopiero pod nią klasyczne wyniki.
+  Ta mapa zbiera lwią część kliknięć — zwłaszcza na telefonie, gdzie zajmuje
+  praktycznie cały pierwszy ekran.
+</p>
+
+<p>
+  O tym, kto się w niej znajdzie, decydują trzy czynniki:
+</p>
+
+<ul>
+  <li><strong>Odległość</strong> — od miejsca, w którym stoi szukający. Na to nie masz wpływu.</li>
+  <li><strong>Trafność</strong> — jak dobrze wizytówka pasuje do zapytania. Na to masz wpływ ogromny.</li>
+  <li><strong>Rozpoznawalność</strong> — opinie, wzmianki, spójność danych w sieci. Na to masz wpływ pośredni, ale realny.</li>
+</ul>
+
+<h2 id="ustawienia">12 ustawień po kolei</h2>
+
+<h3>1. Kategoria główna</h3>
+<p>
+  Najważniejsze pojedyncze pole w całej wizytówce. Wybierz najbardziej precyzyjną
+  dostępną kategorię — „Wypożyczalnia sprzętu narciarskiego", nie „Sklep sportowy".
+  Kategoria główna decyduje o tym, w jakich zapytaniach w ogóle jesteś brany pod uwagę.
+</p>
+
+<h3>2. Kategorie dodatkowe</h3>
+<p>
+  Do dziewięciu, ale nie na siłę. Dodawaj wyłącznie te, które opisują usługi
+  faktycznie świadczone. Kategorie niezwiązane z działalnością rozmywają trafność.
+</p>
+
+<h3>3. Nazwa dokładnie taka jak w rzeczywistości</h3>
+<p>
+  Kuszące jest wpisanie „Karczma Regionalna Zakopane Centrum Tanio". To naruszenie
+  regulaminu i realne ryzyko zawieszenia wizytówki. Nazwa to nazwa firmy —
+  ta z szyldu i z faktur.
+</p>
+
+<h3>4. Adres spójny ze stroną i katalogami</h3>
+<p>
+  Zapis <em>„ul. Krupówki 12/3"</em> na stronie i <em>„Krupówki 12 lok. 3"</em>
+  w wizytówce to dla algorytmu dwa różne adresy. Trzymaj jeden zapis wszędzie —
+  to jest ten słynny NAP (Name, Address, Phone), o którym mówi każdy poradnik SEO.
+</p>
+
+<h3>5. Obszar działania</h3>
+<p>
+  Jeśli dojeżdżasz do klienta (usługi budowlane, instalacje, catering) — wypełnij
+  obszar działania i wpisz konkretne miejscowości. Jeśli klient przychodzi do Ciebie
+  (restauracja, pensjonat) — zostaw sam adres, bez obszaru.
+</p>
+
+<h3>6. Godziny otwarcia, w tym specjalne</h3>
+<p>
+  Na Podhalu to szczególnie istotne: godziny w ferie, w sylwestra, w Boże Narodzenie
+  i w martwym listopadzie potrafią się drastycznie różnić. Google wprost obniża
+  widoczność wizytówek z nieaktualnymi godzinami, bo generują złe doświadczenia.
+</p>
+
+<h3>7. Opis firmy (750 znaków)</h3>
+<p>
+  Nie upychaj tu fraz. Napisz, co robicie, dla kogo i co Was wyróżnia, używając
+  naturalnego języka. Frazy pojawią się same, jeśli opis jest konkretny.
+</p>
+
+<h3>8. Zdjęcia — regularnie, nie jednorazowo</h3>
+<p>
+  Start: minimum 20 zdjęć (zewnątrz, wnętrza, zespół, produkt/usługa w akcji).
+  Potem kilka nowych co miesiąc. Regularność liczy się bardziej niż liczba —
+  wizytówka bez nowego zdjęcia od roku wygląda dla algorytmu jak firma, której
+  może już nie być.
+</p>
+
+<h3>9. Usługi i produkty rozpisane osobno</h3>
+<p>
+  Każda usługa jako osobna pozycja z opisem i ceną (albo widełkami). To pole
+  jest indeksowane i realnie wpływa na dopasowanie do zapytań szczegółowych.
+</p>
+
+<h3>10. Atrybuty</h3>
+<p>
+  „Parking na miejscu", „Przyjazne zwierzętom", „Dostępne dla wózków", „Wi-Fi".
+  To dokładnie te filtry, według których użytkownicy zawężają wyniki w mapach.
+  Brak wypełnionego atrybutu = wypadasz z filtra.
+</p>
+
+<h3>11. Pytania i odpowiedzi</h3>
+<p>
+  Możesz sam zadać pytanie ze swojego prywatnego konta i odpowiedzieć na nie
+  z konta firmowego. To dozwolone i sensowne — uprzedzasz najczęstsze wątpliwości
+  i zmniejszasz liczbę telefonów z tym samym pytaniem.
+</p>
+
+<h3>12. Wpisy (posty)</h3>
+<p>
+  Krótkie aktualności: wolne terminy, oferta na długi weekend, zmiana godzin,
+  nowa usługa. Wpisy wygasają po tygodniu, więc wymagają regularności —
+  ale to najprostszy sygnał, że firma jest aktywna.
+</p>
+
+<h2 id="opinie">Opinie: jak zbierać i jak odpowiadać</h2>
+
+<p>
+  Opinie to jeden z najsilniejszych czynników w lokalnych wynikach. Dwie zasady,
+  których warto się trzymać:
+</p>
+
+<p>
+  <strong>Zbieraj systematycznie, nie zrywami.</strong> Dwadzieścia opinii w jednym
+  tygodniu i cisza przez rok wygląda podejrzanie. Dwie–trzy miesięcznie przez cały
+  rok budują wiarygodny profil. Najskuteczniejszy moment to chwila, w której klient
+  jest zadowolony — przy wymeldowaniu, po odebranej usłudze. Krótki link
+  albo kod QR na paragonie działa lepiej niż mail wysłany tydzień później.
+</p>
+
+<p>
+  <strong>Odpowiadaj na wszystkie, zwłaszcza na negatywne.</strong> Odpowiedź nie jest
+  dla autora opinii — on już wyszedł. Jest dla trzydziestu kolejnych osób, które ją
+  przeczytają. Spokojna, konkretna odpowiedź na krytykę buduje więcej zaufania
+  niż dziesięć entuzjastycznych pięciogwiazdkowych wpisów.
+</p>
+
+<blockquote>
+  <p>
+    Czego nie robić: nie kupuj opinii i nie proś o nie rodziny. Google wykrywa
+    nienaturalne wzorce (te same urządzenia, konta bez historii, nagłe skoki),
+    a usunięcie wykrytych opinii cofa profil do punktu wyjścia. Bywa,
+    że razem z wizytówką.
+  </p>
+</blockquote>
+
+<h2 id="bledy">Błędy, które kosztują pozycje</h2>
+
+<ul>
+  <li><strong>Duplikat wizytówki.</strong> Powstaje przy zmianie adresu albo gdy ktoś kiedyś założył drugą. Dwie wizytówki dzielą między siebie sygnały — trzeba zgłosić duplikat do usunięcia.</li>
+  <li><strong>Numer telefonu inny niż na stronie.</strong> Klasyk. Numer komórkowy w wizytówce, stacjonarny na stronie — dla algorytmu to dwie różne firmy.</li>
+  <li><strong>Wirtualne biuro jako adres.</strong> Google systematycznie weryfikuje adresy i zawiesza wizytówki bez fizycznej obecności.</li>
+  <li><strong>Brak linku do strony albo link do Facebooka.</strong> Wizytówka i strona wzajemnie się wzmacniają — rozłączenie ich to strata po obu stronach.</li>
+  <li><strong>Zdjęcia pobrane z internetu.</strong> Poza kwestią praw autorskich: Google rozpoznaje zdjęcia stockowe i nie traktuje ich jako sygnału realnej działalności.</li>
+</ul>
+
+<hr class="divider">
+
+<p>
+  <strong>Chcesz, żeby ktoś to przejrzał za Ciebie?</strong> Przegląd wizytówki
+  wchodzi w zakres naszego <a href="/uslugi/audyt-seo/">audytu SEO</a>, a przy stałej
+  współpracy prowadzimy ją na bieżąco. Zobacz też, jak wygląda
+  <a href="/uslugi/pozycjonowanie-seo/">pozycjonowanie lokalne</a> w praktyce,
+  albo od razu <a href="/kontakt/">napisz do nas</a>.
+</p>
+
+        </article>
+
+        <div style="margin-top:3rem;padding-top:2rem;border-top:1px solid var(--line)">
+          <p style="font-size:.9375rem;color:var(--muted)">
+            <strong style="color:var(--ink)">Michał Zubek</strong> — Strateg SEO, Tatry Marketing.
+            Tekst powstał na podstawie projektów prowadzonych dla firm z Podhala.
+            Masz pytanie do tego materiału? <a href="/kontakt/">Napisz do nas</a>.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tight section--snow">
+  <div class="wrap">
+    <div class="head">
+      
+      <h2>Przeczytaj również</h2>
+      
+    </div>
+    <div class="linkbox">
+      <a href="/blog/pozycjonowanie-pensjonatu-w-zakopanem/">
+        <span class="linkbox__label">SEO lokalne</span>
+        <span class="linkbox__title">Jak wypozycjonować pensjonat w Zakopanem i przestać oddawać prowizję portalom</span>
+      </a>
+      <a href="/blog/ile-kosztuje-strona-internetowa/">
+        <span class="linkbox__label">Strony WWW</span>
+        <span class="linkbox__title">Ile kosztuje strona internetowa w 2026 roku? Uczciwe widełki i co jest w cenie</span>
+      </a>
+      <a href="/uslugi/">
+        <span class="linkbox__label">Usługi</span>
+        <span class="linkbox__title">Zobacz, jak możemy pomóc</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="cta-band">
+      <h2>Sprawdźmy, ile klientów tracisz w wyszukiwarce</h2>
+      <p>Bezpłatna analiza widoczności Twojej strony i trzech konkurentów z regionu. Bez zobowiązań — dostajesz konkretną listę tego, co blokuje Cię w Google, nawet jeśli nie zdecydujesz się na współpracę.</p>
+      <div class="btn-row btn-row--center">
+        <a class="btn btn--amber" href="/kontakt/">Zamów bezpłatną analizę</a>
+        <a class="btn btn--ghost-light" href="tel:+48500100200">Zadzwoń: +48 500 100 200</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-grid">
+
+        <div class="footer-brand">
+          <a class="logo logo--footer" href="/"><span class="sr-only">Strona główna — </span><svg class="logo__mark" viewBox="0 0 48 48" role="img" aria-label="Tatry Marketing — logo" focusable="false">
+  <rect width="48" height="48" rx="11" fill="#0f2a44"/>
+  <path d="M9 34.5 19 17l5.4 9.4L28.8 19 39 34.5z" fill="#3b9b72"/>
+  <path d="M19 17l5.4 9.4-3.1 5.4L15.9 26z" fill="#2e7d5b"/>
+  <path d="M28.8 19 33 26.2l-3.6 2.2-2.9-5z" fill="#e0a458"/>
+  <circle cx="35.5" cy="13.5" r="3.4" fill="#e0a458"/>
+</svg><span class="logo__text"><span class="logo__name">Tatry Marketing</span><span class="logo__tag">Agencja SEO i stron WWW</span></span></a>
+          <p>Agencja SEO i tworzenia stron internetowych z Podhala. Pomagamy pensjonatom, restauracjom, wypożyczalniom i firmom usługowym zdobywać klientów z wyszukiwarki — przez cały rok, nie tylko w sezonie.</p>
+          <div class="social">
+          <a href="https://www.facebook.com/tatrymarketing" rel="noopener noreferrer me" target="_blank" aria-label="Tatry Marketing — facebook (otwiera się w nowej karcie)"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.89 1.1 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.45 2.89h-2.33v6.99A10 10 0 0 0 22 12Z"/></svg></a>
+          <a href="https://www.linkedin.com/company/tatrymarketing" rel="noopener noreferrer me" target="_blank" aria-label="Tatry Marketing — linkedin (otwiera się w nowej karcie)"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.03-1.85-3.03-1.85 0-2.14 1.45-2.14 2.94v5.66H9.35V9h3.41v1.56h.05a3.74 3.74 0 0 1 3.37-1.85c3.6 0 4.27 2.37 4.27 5.46zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12M7.12 20.45H3.56V9h3.56zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0"/></svg></a>
+          <a href="https://www.instagram.com/tatrymarketing" rel="noopener noreferrer me" target="_blank" aria-label="Tatry Marketing — instagram (otwiera się w nowej karcie)"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.3-1.46.72-2.13 1.38C1.35 2.68.93 3.35.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.3.79.72 1.46 1.38 2.13.67.66 1.34 1.08 2.13 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.3 1.46-.72 2.13-1.38.66-.67 1.08-1.34 1.38-2.13.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.3-.79-.72-1.46-1.38-2.13C21.32 1.35 20.65.93 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0m0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32M12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8m7.85-10.4a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0"/></svg></a>
+          </div>
+        </div>
+
+        <nav class="footer-col" aria-labelledby="stopka-uslugi">
+          <h2 class="footer-col__title" id="stopka-uslugi">Usługi</h2>
+          <ul>
+            <li><a href="/uslugi/pozycjonowanie-seo/">Pozycjonowanie SEO</a></li>
+            <li><a href="/uslugi/strony-internetowe/">Strony internetowe</a></li>
+            <li><a href="/uslugi/audyt-seo/">Audyt SEO</a></li>
+            <li><a href="/uslugi/google-ads/">Google Ads</a></li>
+            <li><a href="/cennik/">Cennik</a></li>
+          </ul>
+        </nav>
+
+        <nav class="footer-col" aria-labelledby="stopka-obszar">
+          <h2 class="footer-col__title" id="stopka-obszar">Obszar działania</h2>
+          <ul>
+            <li><a href="/pozycjonowanie/zakopane/">Pozycjonowanie Zakopane</a></li>
+            <li><a href="/pozycjonowanie/nowy-targ/">Pozycjonowanie Nowy Targ</a></li>
+            <li><a href="/pozycjonowanie/rabka-zdroj/">Pozycjonowanie Rabka-Zdrój</a></li>
+            <li><a href="/pozycjonowanie/nowy-sacz/">Pozycjonowanie Nowy Sącz</a></li>
+          </ul>
+        </nav>
+
+        <div class="footer-col">
+          <h2 class="footer-col__title">Kontakt</h2>
+          <ul>
+            <li><a href="tel:+48500100200">+48 500 100 200</a></li>
+            <li><a href="mailto:kontakt@tatrymarketing.pl">kontakt@tatrymarketing.pl</a></li>
+            <li>ul. Krupówki 12/3<br>34-500 Zakopane</li>
+            <li>poniedziałek – piątek, 8:00 – 16:00</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; <span data-year>2026</span> Tatry Marketing Sp. z o.o.. NIP PL0000000000. Wszelkie prawa zastrzeżone.</p>
+        <nav class="footer-legal" aria-label="Informacje prawne">
+          <a href="/polityka-prywatnosci/">Polityka prywatności</a>
+          <a href="/faq/">Pytania i odpowiedzi</a>
+          <a href="/o-nas/">O nas</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

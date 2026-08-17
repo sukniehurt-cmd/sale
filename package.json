@@ -1,0 +1,24 @@
+{
+  "name": "tatry-marketing",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Strona agencji SEO i tworzenia stron internetowych działającej na Podhalu",
+  "type": "module",
+  "scripts": {
+    "build": "node build/build.mjs",
+    "images": "python3 build/generate-images.py",
+    "serve": "node build/serve.mjs",
+    "dev": "npm run build && npm run serve",
+    "check": "node build/build.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "seo",
+    "podhale",
+    "zakopane",
+    "strony-internetowe"
+  ],
+  "license": "UNLICENSED"
+}

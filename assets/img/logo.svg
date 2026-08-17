@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="Tatry Marketing — logo">
+  <title>Tatry Marketing</title>
+  <rect width="512" height="512" rx="118" fill="#0f2a44"/>
+  <!-- Masyw górski: trzy szczyty w kolorach kosodrzewiny -->
+  <path d="M96 368 202 181l58 100 47-80 109 167z" fill="#3b9b72"/>
+  <path d="M202 181l58 100-33 58-58-100z" fill="#2e7d5b"/>
+  <!-- Oświetlony zbocze w kolorze bursztynu -->
+  <path d="M307 201l45 77-38 23-31-53z" fill="#e0a458"/>
+  <!-- Słońce nad graniami -->
+  <circle cx="379" cy="144" r="36" fill="#e0a458"/>
+</svg>
