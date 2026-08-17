@@ -269,7 +269,38 @@ co oznacza obce ciasteczka (czyli powrót obowiązku baneru zgody), kilkaset kB
 cudzego JavaScriptu na ścieżce krytycznej i limity odtworzeń, przez które hero
 potrafi przestać działać przy większym ruchu.
 
-**Skąd wziąć plik:**
+### Tryb pracy: `file` czy `youtube`
+
+Ustawienie `heroVideo.source` w `site.mjs`:
+
+| Tryb | Co robi | Koszt |
+|---|---|---|
+| `'file'` | Odtwarza plik z `assets/video/` lub CDN | Brak — zero obcych zapytań |
+| `'youtube'` | Osadza odtwarzacz YouTube w `<iframe>` | Ciasteczka Google, obcy JS, wymagany baner zgody |
+
+**Obecnie ustawiony jest tryb `youtube`** (film `fa45gzEzJvo`). Co to oznacza
+w praktyce:
+
+- Odtwarzacz ładuje się z domeny `youtube-nocookie.com` (tryb wzmocnionej
+  ochrony prywatności) i **dopiero po wczytaniu reszty strony** — nie wchodzi
+  na ścieżkę krytyczną, więc LCP zostaje nietknięte.
+- Na telefonach i przy włączonym ograniczeniu animacji **nie ładuje się wcale**;
+  widoczny jest plakat z Waszego serwera i żadne połączenie z Google nie następuje.
+- Kadr jest przycinany tak, by wypełnić sekcję bez czarnych pasów, niezależnie
+  od proporcji ekranu.
+- Polityka prywatności **sama** zawiera sekcję o osadzonym odtwarzaczu —
+  przełączenie na `'file'` usuwa ją automatycznie.
+
+> **Zanim opublikujesz w trybie `youtube`:** odtwarzacz nawiązuje połączenie
+> z serwerami Google i może zapisać pliki cookie, więc wymaga **zgody
+> użytkownika przed wczytaniem**. Wdróż baner zgody blokujący go do czasu jej
+> wyrażenia — albo przełącz na `'file'`, wtedy obowiązek odpada. Build
+> przypomina o tym przy każdym uruchomieniu.
+>
+> Pamiętaj też, że film musi pozostać publiczny — zmiana widoczności
+> albo usunięcie z YouTube psuje tło na stronie.
+
+**Skąd wziąć plik (tryb `file`):**
 
 - **To Twoje nagranie na YouTube?** Pobierz oryginał z YouTube Studio
   (*Treści → wybierz film → menu ⋮ → Pobierz*). Dostaniesz plik w pełnej

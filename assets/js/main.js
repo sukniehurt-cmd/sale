@@ -167,14 +167,16 @@
      Efekt: wideo nie wchodzi na ścieżkę krytyczną i nie psuje LCP.
      ---------------------------------------------------------------------- */
   var heroVideo = document.querySelector('[data-hero-video]');
+  var heroYouTube = document.querySelector('[data-hero-youtube]');
+  var heroBox = heroVideo || heroYouTube;
 
-  if (heroVideo) {
+  if (heroBox) {
     var shouldLoadVideo = function () {
       // 1. Użytkownik prosił system o ograniczenie animacji — uszanuj to.
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
 
       // 2. Wąski ekran — koszt transferu przewyższa efekt wizualny.
-      var minW = parseInt(heroVideo.getAttribute('data-min-width'), 10) || 768;
+      var minW = parseInt(heroBox.getAttribute('data-min-width'), 10) || 768;
       if (window.innerWidth < minW) return false;
 
       // 3. Wolne łącze albo włączony tryb oszczędzania danych.
@@ -225,15 +227,68 @@
       }
     };
 
+    /* --- Wariant YouTube ------------------------------------------------
+       Parametry adresu robią z odtwarzacza tło: mute=1 (bez tego przeglądarka
+       zablokuje autoodtwarzanie), loop wymaga playlist z tym samym
+       identyfikatorem, controls=0 chowa pasek, rel=0 ogranicza propozycje
+       innych filmów na końcu, iv_load_policy=3 wyłącza adnotacje.
+
+       Element <iframe> powstaje dopiero tutaj, po spełnieniu warunków —
+       dzięki temu skrypty YouTube nie są pobierane na telefonach ani przy
+       włączonym trybie ograniczonych animacji. */
+    var startYouTube = function () {
+      if (heroYouTube.dataset.loaded === 'true') return;
+      heroYouTube.dataset.loaded = 'true';
+
+      var id = heroYouTube.getAttribute('data-yt-id');
+      var start = heroYouTube.getAttribute('data-yt-start') || '0';
+      if (!id) return;
+
+      var params = [
+        'autoplay=1',
+        'mute=1',
+        'loop=1',
+        'playlist=' + encodeURIComponent(id),
+        'controls=0',
+        'modestbranding=1',
+        'playsinline=1',
+        'rel=0',
+        'disablekb=1',
+        'fs=0',
+        'iv_load_policy=3',
+        'start=' + encodeURIComponent(start)
+      ].join('&');
+
+      var frame = document.createElement('iframe');
+      frame.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(id) + '?' + params;
+      frame.allow = 'autoplay; encrypted-media; picture-in-picture';
+      frame.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+      frame.setAttribute('loading', 'lazy');
+      // Dekoracja: poza kolejnością tabulacji i poza drzewem dostępności
+      frame.setAttribute('tabindex', '-1');
+      frame.setAttribute('aria-hidden', 'true');
+      frame.title = 'Tło dekoracyjne';
+
+      // Pokaż dopiero, gdy ramka faktycznie się wczyta — inaczej mignęłaby
+      // czarna plama w miejscu plakatu.
+      frame.addEventListener('load', function () {
+        heroYouTube.classList.add('is-playing');
+        if (heroYouTube.parentElement) heroYouTube.parentElement.classList.add('is-playing');
+      });
+
+      heroYouTube.appendChild(frame);
+    };
+
     if (shouldLoadVideo()) {
       /* Nagranie startuje dopiero po wczytaniu reszty strony, żeby nie
          konkurowało o pasmo z fontami i arkuszem stylów. */
-      if (document.readyState === 'complete') startHeroVideo();
-      else window.addEventListener('load', startHeroVideo);
+      var start = heroYouTube ? startYouTube : startHeroVideo;
+      if (document.readyState === 'complete') start();
+      else window.addEventListener('load', start);
 
       /* Poza ekranem odtwarzanie jest marnowaniem baterii i procesora.
          Przy przewinięciu poniżej sekcji hero film się zatrzymuje. */
-      if ('IntersectionObserver' in window) {
+      if (heroVideo && 'IntersectionObserver' in window) {
         new IntersectionObserver(
           function (entries) {
             entries.forEach(function (entry) {

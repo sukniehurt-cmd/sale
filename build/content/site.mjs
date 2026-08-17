@@ -105,6 +105,29 @@ export const site = {
      Build ostrzega, jeśli pliku brakuje. */
   heroVideo: {
     enabled: true,
+
+    /* Tryb źródła:
+         'file'    — własny plik z assets/video/ lub CDN (zalecane),
+         'youtube' — osadzony odtwarzacz YouTube.
+
+       Tryb 'youtube' jest wygodny (nie trzeba hostować pliku), ale ma koszty,
+       o których warto pamiętać:
+         - ładuje kilkaset kB obcego JavaScriptu, co obciąża Core Web Vitals,
+         - ustawia pliki cookie serwisu Google, więc strona wymaga baneru
+           zgody, a polityka prywatności musi to opisywać (jest to już w niej
+           uwzględnione — sekcja o osadzonym odtwarzaczu włącza się sama),
+         - nie da się wyłączyć wszystkich elementów interfejsu odtwarzacza,
+         - film musi pozostać publiczny; zmiana widoczności psuje tło.
+
+       Przejście na 'file' to zmiana jednej linijki — reszta działa tak samo.
+       Przygotowanie pliku: ./build/prepare-video.sh nagranie.mp4 */
+    source: 'youtube',
+
+    /* Identyfikator filmu z adresu YouTube:
+       https://www.youtube.com/watch?v=fa45gzEzJvo  ->  'fa45gzEzJvo' */
+    youtubeId: 'fa45gzEzJvo',
+    youtubeStart: 0, // sekunda, od której startuje pętla
+
     webm: '/assets/video/hero.webm', // preferowany — mniejszy przy tej samej jakości
     mp4: '/assets/video/hero.mp4', // zapas dla Safari i starszych przeglądarek
     poster: '/assets/img/hero-poster.jpg',

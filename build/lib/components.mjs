@@ -246,14 +246,42 @@ export function heroMedia() {
   const v = site.heroVideo;
   if (!v || !v.enabled) return '';
 
+  /* Przezroczystość przekazywana jako zmienna CSS, żeby ustawienie
+     z site.mjs faktycznie działało, a nie było martwym zapisem. */
+  const open = `<div class="hero__media" aria-hidden="true" style="--hero-video-opacity:${v.opacity}">`;
+  const close = `<div class="hero__scrim"></div>
+    </div>`;
+
+  /* --- Tryb YouTube ------------------------------------------------------
+     Element <iframe> NIE jest wstawiany od razu — powstaje dopiero w JS,
+     po sprawdzeniu tych samych warunków co przy pliku własnym. Gdyby stał
+     w kodzie HTML, przeglądarka pobrałaby kilkaset kB skryptów YouTube już
+     przy wczytywaniu strony — także na telefonie — i zepsuła LCP.
+
+     Domena youtube-nocookie.com to tryb wzmocnionej ochrony prywatności:
+     ogranicza zakres śledzenia do momentu rozpoczęcia odtwarzania.
+     Nie zwalnia z baneru zgody, ale zmniejsza ilość zbieranych danych.
+
+     Do czasu wstawienia odtwarzacza — i zawsze na telefonach — widoczny
+     jest plakat ustawiony jako tło kontenera. */
+  if (v.source === 'youtube' && v.youtubeId) {
+    return `${open}
+      <div class="hero__yt"
+           data-hero-youtube
+           data-yt-id="${esc(v.youtubeId)}"
+           data-yt-start="${Number(v.youtubeStart) || 0}"
+           data-min-width="${v.minWidth}"
+           style="background-image:url('${v.poster}')"></div>
+      ${close}`;
+  }
+
+  /* --- Tryb pliku własnego ---------------------------------------------- */
   const sources = [
     v.webm ? ` data-webm="${v.webm}"` : '',
     v.mp4 ? ` data-mp4="${v.mp4}"` : ''
   ].join('');
 
-  /* Przezroczystość przekazywana jako zmienna CSS, żeby ustawienie
-     z site.mjs faktycznie działało, a nie było martwym zapisem. */
-  return `<div class="hero__media" aria-hidden="true" style="--hero-video-opacity:${v.opacity}">
+  return `${open}
       <video class="hero__video"
              data-hero-video
              data-min-width="${v.minWidth}"
@@ -264,8 +292,7 @@ export function heroMedia() {
              playsinline
              disablepictureinpicture
              tabindex="-1"></video>
-      <div class="hero__scrim"></div>
-    </div>`;
+      ${close}`;
 }
 
 /* --------------------------------------------------------------------------

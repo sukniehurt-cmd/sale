@@ -200,6 +200,30 @@ function checkHeroVideo() {
   const v = site.heroVideo;
   if (!v || !v.enabled) return;
 
+  /* --- Tryb YouTube --------------------------------------------------- */
+  if (v.source === 'youtube') {
+    if (!v.youtubeId) {
+      problems.push('sekcja hero: source = "youtube", ale brakuje youtubeId w site.mjs');
+    } else if (!/^[A-Za-z0-9_-]{11}$/.test(v.youtubeId)) {
+      problems.push(
+        `sekcja hero: "${v.youtubeId}" nie wygląda na identyfikator filmu YouTube. ` +
+          `Wpisz sam identyfikator z adresu, np. dla ` +
+          `https://www.youtube.com/watch?v=fa45gzEzJvo podaj: fa45gzEzJvo`
+      );
+    }
+
+    warnings.push(
+      'sekcja hero: tło z YouTube — przed publikacją wdróż baner zgody. ' +
+        'Odtwarzacz nawiązuje połączenie z serwerami Google i może zapisać pliki cookie, ' +
+        'więc wymaga zgody użytkownika przed wczytaniem (polityka prywatności już to opisuje)'
+    );
+
+    if (v.poster && !existsSync(join(ROOT, v.poster))) {
+      problems.push(`sekcja hero: brak plakatu ${v.poster} — uruchom: npm run images`);
+    }
+    return; // plików wideo w tym trybie nie sprawdzamy
+  }
+
   const isExternal = (p) => /^https?:\/\//.test(p);
 
   /* Adresy zewnętrzne (CDN) sprawdzamy tylko pod kątem sensowności —
@@ -353,6 +377,14 @@ function buildManifest() {
    .htaccess — konfiguracja dla serwerów Apache
    ========================================================================== */
 function buildHtaccess() {
+  /* Osadzony odtwarzacz YouTube wymaga zgody w CSP na ramkę z obcej domeny.
+     Gdy wideo pochodzi z własnego pliku, ta zgoda jest zbędna — i wtedy
+     polityka pozostaje maksymalnie restrykcyjna. */
+  const CSP_FRAME =
+    site.heroVideo && site.heroVideo.enabled && site.heroVideo.source === 'youtube'
+      ? "frame-src https://www.youtube-nocookie.com; "
+      : '';
+
   return `# ==========================================================================
 # .htaccess — ${site.name}
 # --------------------------------------------------------------------------
@@ -423,7 +455,7 @@ ErrorDocument 404 /404.html
   # media-src 'self' wystarcza, gdy wideo hero leży w assets/video/.
   # Jeśli serwujesz je z CDN, dopisz tam jego adres, np.:
   #   media-src 'self' https://cdn.twojadomena.pl;
-  Header set Content-Security-Policy "default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; font-src 'self'; media-src 'self'; form-action 'self'; frame-ancestors 'self'; base-uri 'self'"
+  Header set Content-Security-Policy "default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; font-src 'self'; media-src 'self'; ${CSP_FRAME}form-action 'self'; frame-ancestors 'self'; base-uri 'self'"
 </IfModule>
 
 # --- Kodowanie znaków -----------------------------------------------------

@@ -998,17 +998,60 @@ ${pageHead({
       </table>
       </div>
 
-      <h2>4. Pliki cookie</h2>
+      <h2>4. Pliki cookie i treści osadzone</h2>
       <p>
-        Ta strona <strong>nie wykorzystuje plików cookie do celów analitycznych
-        ani marketingowych</strong>. Nie stosujemy narzędzi śledzących, nie osadzamy
-        pikseli reklamowych i nie profilujemy odwiedzających.
+        Ta strona <strong>nie wykorzystuje własnych plików cookie do celów
+        analitycznych ani marketingowych</strong>. Nie stosujemy narzędzi
+        śledzących, nie osadzamy pikseli reklamowych i nie profilujemy
+        odwiedzających.
       </p>
       <p>
         Czcionki użyte na stronie są serwowane z naszego własnego serwera, a nie
-        z zewnętrznych usług — dzięki temu przeglądanie strony nie powoduje
-        przekazania Twojego adresu IP podmiotom trzecim.
+        z zewnętrznych usług — dzięki temu samo przeglądanie strony nie powoduje
+        przekazania Twojego adresu IP dostawcom krojów pisma.
+      </p>${
+        site.heroVideo && site.heroVideo.enabled && site.heroVideo.source === 'youtube'
+          ? `
+
+      <h3>Odtwarzacz wideo w nagłówku strony głównej</h3>
+      <p>
+        Na stronie głównej, w tle nagłówka, osadzamy materiał wideo za
+        pośrednictwem serwisu <strong>YouTube</strong> (Google Ireland Limited,
+        Gordon House, Barrow Street, Dublin 4, Irlandia). Korzystamy z trybu
+        wzmocnionej ochrony prywatności (domena <code>youtube-nocookie.com</code>),
+        który ogranicza zakres zbieranych danych.
       </p>
+      <p>
+        Mimo to wczytanie odtwarzacza oznacza nawiązanie połączenia z serwerami
+        Google i przekazanie im Twojego adresu IP, informacji o przeglądarce
+        oraz adresu odwiedzanej podstrony. Google może zapisać w Twoim
+        urządzeniu pliki cookie lub podobne technologie. Nie mamy wpływu
+        na zakres i cel tego przetwarzania.
+      </p>
+      <p>
+        Odtwarzacz wczytuje się wyłącznie na ekranach o szerokości co najmniej
+        768 pikseli oraz wtedy, gdy w systemie nie jest włączone ograniczenie
+        animacji ani tryb oszczędzania danych. Na urządzeniach mobilnych
+        wyświetlana jest wyłącznie grafika statyczna z naszego serwera —
+        wówczas żadne połączenie z Google nie następuje.
+      </p>
+      <p>
+        Zasady przetwarzania danych przez Google opisuje
+        <a href="https://policies.google.com/privacy" rel="noopener noreferrer nofollow" target="_blank">polityka
+        prywatności Google</a> (otwiera się w nowej karcie).
+      </p>
+      <div class="note">
+        <p>
+          <strong>DO_UZUPELNIENIA.</strong> Osadzenie odtwarzacza YouTube wymaga
+          uzyskania zgody użytkownika <em>przed</em> jego wczytaniem. Przed
+          publikacją wdróż baner zgody blokujący odtwarzacz do czasu jej
+          wyrażenia albo przełącz tło na własny plik wideo — wtedy ta sekcja
+          zniknie automatycznie, a obowiązek zgody odpada. Szczegóły w README,
+          sekcja „Wideo w sekcji hero".
+        </p>
+      </div>`
+          : ''
+      }
       <p>
         Jeśli w przyszłości wdrożymy narzędzia analityczne, pojawi się baner
         umożliwiający wyrażenie lub odmowę zgody, a niniejszy dokument zostanie

@@ -68,7 +68,7 @@ ErrorDocument 404 /404.html
   # media-src 'self' wystarcza, gdy wideo hero leży w assets/video/.
   # Jeśli serwujesz je z CDN, dopisz tam jego adres, np.:
   #   media-src 'self' https://cdn.twojadomena.pl;
-  Header set Content-Security-Policy "default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; font-src 'self'; media-src 'self'; form-action 'self'; frame-ancestors 'self'; base-uri 'self'"
+  Header set Content-Security-Policy "default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; font-src 'self'; media-src 'self'; frame-src https://www.youtube-nocookie.com; form-action 'self'; frame-ancestors 'self'; base-uri 'self'"
 </IfModule>
 
 # --- Kodowanie znaków -----------------------------------------------------

@@ -799,6 +799,49 @@ b {
 
 /* Przyciemnienie gwarantujące kontrast tekstu niezależnie od jasności klatki.
    Mocniejsze po lewej, gdzie stoi nagłówek, i u dołu, gdzie zaczyna się grań. */
+/* --- Odtwarzacz YouTube jako tło --------------------------------------------
+   Film ma stałe proporcje 16:9, a sekcja hero prawie nigdy ich nie ma.
+   Żeby uniknąć czarnych pasów, odtwarzacz jest powiększany do rozmiaru
+   przekraczającego kontener i wyśrodkowany — czyli robimy to samo,
+   co `object-fit: cover` robi dla obrazu (iframe tego nie obsługuje).
+
+   Jednostki cqw/cqh liczą się względem tego kontenera, więc kadrowanie
+   działa niezależnie od wysokości sekcji. */
+.hero__yt {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  container-type: size;
+  /* Plakat pod spodem — widoczny, zanim odtwarzacz ruszy */
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1.2s var(--ease);
+}
+
+.hero__yt.is-playing {
+  opacity: var(--hero-video-opacity, 0.92);
+}
+
+/* Plakat pokazujemy od razu, także gdy odtwarzacz się nie wczyta */
+.hero__media:not(.is-playing) .hero__yt {
+  opacity: 1;
+}
+
+.hero__yt iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 0;
+  /* Weź większy z dwóch wymiarów, żeby kadr zawsze wypełnił kontener */
+  width: max(100%, calc(100cqh * 16 / 9));
+  height: max(100%, calc(100cqw * 9 / 16));
+  /* Tło ma być tłem — kliknięcia idą do treści pod spodem */
+  pointer-events: none;
+  filter: saturate(0.85) contrast(1.02);
+}
+
 /* --- Przyciemnienie ---------------------------------------------------------
    Zamiast jednej mocnej zasłony na całym kadrze — trzy warstwy o różnych
    zadaniach. Dzięki temu nagranie pozostaje wyraźnie widoczne tam, gdzie nie
