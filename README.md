@@ -255,6 +255,109 @@ do Google, co upraszcza obowiązki wynikające z RODO.
 
 ---
 
+## Wideo w sekcji hero
+
+Strona główna ma tło filmowe. Konfiguracja: `heroVideo` w
+[`build/content/site.mjs`](build/content/site.mjs).
+
+### Skąd bierze się plik
+
+**Wideo nie może pochodzić z Dysku Google, YouTube ani Vimeo.** Te serwisy nie
+udostępniają bezpośredniego adresu pliku — Dysk zwraca stronę HTML i blokuje
+hotlinkowanie, a YouTube i Vimeo wymagają osadzenia odtwarzacza w `<iframe>`,
+co oznacza obce ciasteczka (czyli powrót obowiązku baneru zgody), kilkaset kB
+cudzego JavaScriptu na ścieżce krytycznej i limity odtworzeń, przez które hero
+potrafi przestać działać przy większym ruchu.
+
+Działają dwa źródła:
+
+| Źródło | Zapis w `site.mjs` | Kiedy |
+|---|---|---|
+| Plik w repozytorium | `webm: '/assets/video/hero.webm'` | Domyślnie. Zero obcych zapytań, pełna kontrola |
+| Bezpośredni adres na CDN | `webm: 'https://cdn.twojadomena.pl/hero.webm'` | Przy dużych plikach. Wymaga obsługi Range i CORS — Cloudflare R2, Bunny, S3 |
+
+Przy źródle zewnętrznym dopisz jego adres do `media-src` w nagłówku
+`Content-Security-Policy` w pliku `.htaccess` — inaczej przeglądarka zablokuje
+odtwarzanie.
+
+### Przygotowanie pliku
+
+Nagranie z telefonu czy drona ma zwykle 50–300 MB — na stronę nadaje się plik
+**8–15 sekund i poniżej 3 MB**. Tło jest przyciemnione i rozmyte ruchem, więc
+mocna kompresja nie jest widoczna, a ogromny plik zjadłby cały zysk
+z pozostałych optymalizacji.
+
+```bash
+# 1. Przytnij do 10 sekund (od 5. sekundy) i usuń dźwięk
+ffmpeg -ss 5 -i oryginal.mp4 -t 10 -an -c:v copy przyciete.mp4
+
+# 2. WebM — format podstawowy, najlepszy stosunek jakości do wagi
+ffmpeg -i przyciete.mp4 -an -c:v libvpx-vp9 -crf 40 -b:v 0 \
+       -vf "scale=1920:-2,fps=25" -row-mt 1 assets/video/hero.webm
+
+# 3. MP4 — zapas dla Safari i starszych przeglądarek
+ffmpeg -i przyciete.mp4 -an -c:v libx264 -crf 30 -preset slow \
+       -vf "scale=1920:-2,fps=25" -pix_fmt yuv420p \
+       -movflags +faststart assets/video/hero.mp4
+```
+
+Wskazówki: `-an` usuwa ścieżkę dźwiękową (tło jest wyciszone, więc dźwięk to
+czysty balast), `-movflags +faststart` przenosi metadane na początek pliku,
+dzięki czemu odtwarzanie startuje przed pobraniem całości, a `crf` steruje
+jakością — wyższa liczba to mniejszy plik.
+
+Po podmianie wygeneruj też plakat pasujący do pierwszej klatki nagrania:
+
+```bash
+ffmpeg -i assets/video/hero.mp4 -ss 0 -frames:v 1 -q:v 3 assets/img/hero-poster.jpg
+```
+
+### Jak to działa
+
+Nagranie **nigdy nie jest pobierane na starcie**. Skrypt dociąga je dopiero po
+wczytaniu reszty strony i tylko wtedy, gdy spełnione są wszystkie warunki:
+
+| Warunek | Efekt gdy niespełniony |
+|---|---|
+| Ekran ≥ 768 px | Telefony dostają sam plakat — zero transferu wideo |
+| Brak `prefers-reduced-motion` | Osoby z wyłączonymi animacjami widzą plakat |
+| Brak trybu oszczędzania danych i łącza 2G | Plakat |
+| Autoodtwarzanie dozwolone przez przeglądarkę | Plakat |
+
+Do tego wideo **zatrzymuje się po przewinięciu poza sekcję hero**
+(IntersectionObserver), żeby nie zużywać baterii i procesora.
+
+Dzięki temu wideo nie wchodzi na ścieżkę krytyczną i **nie wpływa na LCP** —
+elementem LCP pozostaje nagłówek, renderowany z samego HTML i CSS.
+
+### Kontrast tekstu
+
+Nad nagraniem leży przyciemnienie (`.hero__scrim`) o sile malejącej w prawo —
+mocne pod nagłówkiem, słabe tam, gdzie film ma być widoczny. Wartości zostały
+dobrane **pomiarem pikseli** na najgorszym przypadku, czyli jasnych,
+ośnieżonych kadrach:
+
+| Element | Zmierzony kontrast | Wymóg WCAG AA |
+|---|---|---|
+| Nagłówek `h1`, biel | 7,2:1 | 3,0:1 |
+| Nagłówek `h1`, bursztyn | 4,1:1 | 3,0:1 |
+| Akapit wiodący | 4,9:1 | 4,5:1 |
+| Pasek zaufania | 6,5:1 | 4,5:1 |
+| Etykieta panelu | 7,3:1 | 4,5:1 |
+| Treść panelu | 5,2:1 | 4,5:1 |
+
+Jeśli podmienisz nagranie na wyraźnie jaśniejsze i chcesz zwiększyć jego
+widoczność, reguluj `heroVideo.opacity` w `site.mjs` — ale po każdej zmianie
+sprawdź czytelność tekstu na najjaśniejszej klatce.
+
+### Wyłączenie
+
+Ustaw `heroVideo.enabled = false` w `site.mjs` i uruchom `npm run build`.
+Zostanie gradient dokładnie taki jak przed wprowadzeniem wideo — żadna inna
+część strony tego nie zauważy.
+
+---
+
 ## Formularz kontaktowy
 
 Strona jest statyczna, więc formularz wymaga zewnętrznej obsługi. W pliku

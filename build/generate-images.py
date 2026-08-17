@@ -20,7 +20,7 @@ import os
 import sys
 
 try:
-    from PIL import Image, ImageDraw, ImageFont
+    from PIL import Image, ImageDraw, ImageFont, ImageFilter
 except ImportError:
     sys.exit("Brak biblioteki Pillow. Zainstaluj: pip install pillow")
 
@@ -217,6 +217,54 @@ def build_og(filename, headline, kicker, footer_text):
 # =============================================================================
 # Uruchomienie
 # =============================================================================
+def build_hero_poster():
+    """
+    Plakat sekcji hero — pierwsza klatka zanim wczyta się wideo, a na
+    telefonach i przy włączonym trybie ograniczonych animacji jedyne tło.
+    Dlatego musi wyglądać jak gradient z CSS, a nie jak osobna grafika.
+
+    Świadomie BEZ ostrej sylwetki grani: ta jest rysowana nad plakatem
+    jako inline SVG (.hero__range). Tutaj tylko miękka mgła warstw,
+    która pod nagraniem czyta się jak głębia, a nie jak druga góra.
+    """
+    W, H = 1600, 900
+    img = gradient_background(W, H)
+    layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    d = ImageDraw.Draw(layer)
+
+    # Poświata w kolorze kosodrzewiny — odpowiednik .hero::before
+    glow = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    gd = ImageDraw.Draw(glow)
+    for r in range(560, 0, -8):
+        a = int(26 * (1 - r / 560) ** 1.6)
+        gd.ellipse([W * 0.78 - r, -H * 0.15 - r, W * 0.78 + r, -H * 0.15 + r],
+                   fill=PINE_500 + (a,))
+    layer = Image.alpha_composite(layer, glow)
+
+    # Trzy warstwy mgły — im dalej, tym jaśniejsze i bardziej rozmyte
+    for i, (alpha, base, spread) in enumerate([(28, 0.56, 0.16), (44, 0.68, 0.12), (66, 0.80, 0.09)]):
+        pts = [(0, H)]
+        steps = 7 + i * 2
+        for s in range(steps + 1):
+            x = W * s / steps
+            # deterministyczna „grań” — bez losowości, żeby plakat był powtarzalny
+            y = H * (base - spread * abs(((s * 2.7 + i * 1.3) % 2) - 1))
+            pts.append((x, y))
+        pts.append((W, H))
+        fog = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+        ImageDraw.Draw(fog).polygon(pts, fill=NAVY_950 + (alpha,))
+        fog = fog.filter(ImageFilter.GaussianBlur(radius=18 - i * 5))
+        layer = Image.alpha_composite(layer, fog)
+
+    img = Image.alpha_composite(img.convert("RGBA"), layer).convert("RGB")
+
+    # JPEG, nie PNG: plakat to płynny gradient, na którym JPEG jest
+    # kilkukrotnie mniejszy przy nieodróżnialnej jakości.
+    img.save(os.path.join(IMG, "hero-poster.jpg"), "JPEG", quality=82, optimize=True, progressive=True)
+    kb = os.path.getsize(os.path.join(IMG, "hero-poster.jpg")) / 1024
+    print(f"  ✓ hero-poster.jpg  ({W}x{H}, {kb:.0f} kB)")
+
+
 def main():
     print("\n  Generowanie grafik\n")
 
@@ -254,6 +302,8 @@ def main():
         "Podhale",
         "tatrymarketing.pl  ·  Pozycjonowanie, strony WWW, Google Ads",
     )
+    build_hero_poster()
+
     build_og(
         "og-blog.png",
         "Poradniki SEO dla firm z Podhala",

@@ -50,6 +50,8 @@ ErrorDocument 404 /404.html
   ExpiresByType image/png                 "access plus 6 months"
   ExpiresByType image/jpeg                "access plus 6 months"
   ExpiresByType image/webp                "access plus 6 months"
+  ExpiresByType video/webm                "access plus 6 months"
+  ExpiresByType video/mp4                 "access plus 6 months"
   ExpiresByType application/xml           "access plus 1 day"
 </IfModule>
 
@@ -63,7 +65,10 @@ ErrorDocument 404 /404.html
   # Strona nie ładuje żadnych zasobów z zewnątrz — dlatego polityka
   # może być tak restrykcyjna. Po dodaniu Analytics albo osadzonej mapy
   # trzeba ją rozszerzyć, inaczej te elementy przestaną działać.
-  Header set Content-Security-Policy "default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; font-src 'self'; form-action 'self'; frame-ancestors 'self'; base-uri 'self'"
+  # media-src 'self' wystarcza, gdy wideo hero leży w assets/video/.
+  # Jeśli serwujesz je z CDN, dopisz tam jego adres, np.:
+  #   media-src 'self' https://cdn.twojadomena.pl;
+  Header set Content-Security-Policy "default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; font-src 'self'; media-src 'self'; form-action 'self'; frame-ancestors 'self'; base-uri 'self'"
 </IfModule>
 
 # --- Kodowanie znaków -----------------------------------------------------

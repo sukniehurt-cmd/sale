@@ -346,7 +346,20 @@
 
 <main id="tresc">
 
-<section class="hero">
+<section class="hero hero--video">
+  <div class="hero__media" aria-hidden="true" style="--hero-video-opacity:0.55">
+      <video class="hero__video"
+             data-hero-video
+             data-min-width="768"
+             poster="/assets/img/hero-poster.jpg" data-webm="/assets/video/hero.webm" data-mp4="/assets/video/hero.mp4"
+             preload="none"
+             muted
+             loop
+             playsinline
+             disablepictureinpicture
+             tabindex="-1"></video>
+      <div class="hero__scrim"></div>
+    </div>
   <svg class="hero__range" viewBox="0 0 1440 220" preserveAspectRatio="none" aria-hidden="true" focusable="false">
     <path d="M0 220V150l120-46 90 32 110-70 96 58 118-96 104 74 92-52 130 84 88-40 122 66 96-30 74 26v64z" fill="#0b1f33" opacity=".55"/>
     <path d="M0 220v-38l150-58 110 40 120-64 130 70 110-84 120 92 110-54 140 76 110-38 140 58 100-24v24z" fill="#071726" opacity=".8"/>

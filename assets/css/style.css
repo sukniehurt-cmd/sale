@@ -764,6 +764,52 @@ b {
   padding-block: clamp(var(--sp-8), 8vw, 7rem) clamp(var(--sp-8), 8vw, 8rem);
 }
 
+/* --- Tło wideo ------------------------------------------------------------
+   Warstwy hero, od spodu: gradient (.hero) → wideo (.hero__video)
+   → przyciemnienie (.hero__scrim) → grań (.hero__range) → treść (.hero__inner).
+   Gradient jest zawsze pod spodem, więc brak lub niewczytanie się nagrania
+   nie zmienia wyglądu sekcji — po prostu zostaje dotychczasowe tło. */
+.hero__media {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero__video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  /* Nagranie stapia się z paletą: mniej nasycenia, chłodniejszy odcień.
+     Bez tego zielenie i błękity z filmu biją się z granatem i kosówką. */
+  filter: saturate(0.62) contrast(1.04) brightness(0.95);
+  transition: opacity 1.2s var(--ease);
+}
+
+/* Klasę dodaje skrypt dopiero po faktycznym rozpoczęciu odtwarzania —
+   dzięki temu nie ma przeskoku z czarnej klatki. */
+.hero__video.is-playing {
+  /* Wartość pochodzi z heroVideo.opacity w site.mjs (zmienna ustawiana
+     na .hero__media). Liczba po przecinku to zapas, gdyby jej zabrakło. */
+  opacity: var(--hero-video-opacity, 0.55);
+}
+
+/* Przyciemnienie gwarantujące kontrast tekstu niezależnie od jasności klatki.
+   Mocniejsze po lewej, gdzie stoi nagłówek, i u dołu, gdzie zaczyna się grań. */
+.hero__scrim {
+  position: absolute;
+  inset: 0;
+  /* Najmocniejsze po lewej, gdzie stoi nagłówek, najsłabsze po prawej,
+     żeby nagranie było widoczne. Wartości dobrane pomiarem kontrastu
+     na jasnych, ośnieżonych kadrach — najgorszym przypadku dla białego
+     tekstu. Zmierzony wynik przy tych ustawieniach opisuje README. */
+  background:
+    linear-gradient(100deg, rgba(11, 31, 51, 0.82) 0%, rgba(11, 31, 51, 0.5) 45%, rgba(11, 31, 51, 0.16) 100%),
+    linear-gradient(to bottom, rgba(7, 23, 38, 0.45) 0%, transparent 30%, rgba(7, 23, 38, 0.34) 64%, rgba(7, 23, 38, 0.74) 100%);
+}
+
 /* Sylwetka Tatr w tle — dekoracja, poza drzewem dostępności */
 .hero__range {
   position: absolute;
@@ -774,6 +820,7 @@ b {
   height: auto;
   opacity: 0.5;
   pointer-events: none;
+  z-index: 1;
 }
 
 /* Delikatna poświata za treścią */
@@ -786,11 +833,13 @@ b {
   height: 55rem;
   background: radial-gradient(circle, rgba(59, 155, 114, 0.22) 0%, transparent 62%);
   pointer-events: none;
+  /* Nad wideo, pod treścią — inaczej nagranie przykryłoby poświatę marki */
+  z-index: 1;
 }
 
 .hero__inner {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   display: grid;
   grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
   gap: clamp(var(--sp-6), 5vw, var(--sp-8));
@@ -835,6 +884,12 @@ b {
   color: rgba(255, 255, 255, 0.78);
 }
 
+/* Nad wideo pasek zaufania stoi w najjaśniejszej partii kadru,
+   więc dostaje mocniejszą biel — zmierzone 4,19:1 przy 78%. */
+.hero--video .hero__badge {
+  color: rgba(255, 255, 255, 0.92);
+}
+
 .hero__badge svg {
   width: 17px;
   height: 17px;
@@ -843,6 +898,15 @@ b {
 }
 
 /* Karta z zestawieniem wyników po prawej stronie hero */
+/* Nad wideo panel potrzebuje własnego, nieprzezroczystego podkładu.
+   Przy szklistym tle 6% biały tekst i bursztynowa etykieta schodziły
+   na jasnych kadrach do 2,5:1. Granatowy podkład trzyma kontrast
+   niezależnie od tego, co akurat pokazuje nagranie. */
+.hero--video .hero__panel {
+  background: rgba(9, 26, 43, 0.72);
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
 .hero__panel {
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.14);

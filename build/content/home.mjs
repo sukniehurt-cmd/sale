@@ -19,6 +19,7 @@ import {
   areaChips,
   ctaBand,
   mountainRange,
+  heroMedia,
   postCover
 } from '../lib/components.mjs';
 import { posts } from './blog.mjs';
@@ -83,7 +84,8 @@ export const homePage = {
   schema: [faqSchema(`${site.url}/`, faq)],
 
   body: `
-<section class="hero">
+<section class="hero hero--video">
+  ${heroMedia()}
   ${mountainRange()}
   <div class="wrap hero__inner">
 

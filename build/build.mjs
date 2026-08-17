@@ -190,6 +190,59 @@ function checkInternalLinks(rendered) {
 }
 
 /* --------------------------------------------------------------------------
+   Kontrola plików wideo dla sekcji hero
+   --------------------------------------------------------------------------
+   Brak nagrania nie jest błędem — strona działa wtedy na samym plakacie,
+   dokładnie jak przed wprowadzeniem wideo. Ale łatwo o tym zapomnieć
+   po wgraniu serwisu na serwer, więc build o tym przypomina.
+   -------------------------------------------------------------------------- */
+function checkHeroVideo() {
+  const v = site.heroVideo;
+  if (!v || !v.enabled) return;
+
+  const isExternal = (p) => /^https?:\/\//.test(p);
+
+  /* Adresy zewnętrzne (CDN) sprawdzamy tylko pod kątem sensowności —
+     istnienia pliku na cudzym serwerze i tak nie zweryfikujemy offline. */
+  for (const key of ['webm', 'mp4']) {
+    const src = v[key];
+    if (!src || !isExternal(src)) continue;
+
+    if (/drive\.google|docs\.google|youtube|youtu\.be|vimeo|dropbox/.test(src)) {
+      problems.push(
+        `sekcja hero: ${src} nie jest bezpośrednim adresem pliku wideo. ` +
+          `Dysk Google, YouTube, Vimeo i Dropbox nie pozwalają na użycie ich jako źródła <video> — ` +
+          `pobierz nagranie i wgraj je do assets/video/ albo na własny CDN (patrz README)`
+      );
+    } else {
+      warnings.push(
+        `sekcja hero: nagranie ładowane z obcego serwera (${new URL(src).host}) — ` +
+          `pamiętaj o dopisaniu media-src do Content-Security-Policy w .htaccess`
+      );
+    }
+  }
+
+  const missing = ['webm', 'mp4']
+    .map((k) => v[k])
+    .filter(Boolean)
+    .filter((p) => !isExternal(p))
+    .filter((p) => !existsSync(join(ROOT, p)));
+
+  if (missing.length === 2) {
+    warnings.push(
+      `sekcja hero: brak plików wideo (${missing.join(', ')}) — wyświetli się sam plakat. ` +
+        `Wgraj je do assets/video/ albo ustaw heroVideo.enabled = false w site.mjs`
+    );
+  } else if (missing.length === 1) {
+    warnings.push(`sekcja hero: brak pliku ${missing[0]} — zostanie użyty tylko drugi format`);
+  }
+
+  if (v.poster && !existsSync(join(ROOT, v.poster))) {
+    problems.push(`sekcja hero: brak plakatu ${v.poster} — uruchom: npm run images`);
+  }
+}
+
+/* --------------------------------------------------------------------------
    Kontrola unikalności tytułów i opisów
    --------------------------------------------------------------------------
    Dwie podstrony z identycznym title to sygnał, że konkurują ze sobą
@@ -352,6 +405,8 @@ ErrorDocument 404 /404.html
   ExpiresByType image/png                 "access plus 6 months"
   ExpiresByType image/jpeg                "access plus 6 months"
   ExpiresByType image/webp                "access plus 6 months"
+  ExpiresByType video/webm                "access plus 6 months"
+  ExpiresByType video/mp4                 "access plus 6 months"
   ExpiresByType application/xml           "access plus 1 day"
 </IfModule>
 
@@ -365,7 +420,10 @@ ErrorDocument 404 /404.html
   # Strona nie ładuje żadnych zasobów z zewnątrz — dlatego polityka
   # może być tak restrykcyjna. Po dodaniu Analytics albo osadzonej mapy
   # trzeba ją rozszerzyć, inaczej te elementy przestaną działać.
-  Header set Content-Security-Policy "default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; font-src 'self'; form-action 'self'; frame-ancestors 'self'; base-uri 'self'"
+  # media-src 'self' wystarcza, gdy wideo hero leży w assets/video/.
+  # Jeśli serwujesz je z CDN, dopisz tam jego adres, np.:
+  #   media-src 'self' https://cdn.twojadomena.pl;
+  Header set Content-Security-Policy "default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; font-src 'self'; media-src 'self'; form-action 'self'; frame-ancestors 'self'; base-uri 'self'"
 </IfModule>
 
 # --- Kodowanie znaków -----------------------------------------------------
@@ -398,6 +456,7 @@ function main() {
 
   checkUniqueness();
   checkInternalLinks(rendered);
+  checkHeroVideo();
 
   /* --- Podsumowanie --- */
   for (const { p, file, html } of rendered) {

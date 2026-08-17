@@ -155,6 +155,101 @@
   }
 
   /* ----------------------------------------------------------------------
+     Tło wideo w sekcji hero
+     ----------------------------------------------------------------------
+     Plik wideo NIE jest zadeklarowany w HTML — adresy siedzą w atrybutach
+     `data-`. Gdyby stały w <source>, przeglądarka zaczęłaby pobierać
+     nagranie natychmiast: także na telefonie w roamingu i u osoby, która
+     w systemie wyłączyła animacje. Tutaj pobranie następuje dopiero po
+     sprawdzeniu warunków, a do tego czasu (i zawsze, gdy warunki nie są
+     spełnione) widoczny jest plakat.
+
+     Efekt: wideo nie wchodzi na ścieżkę krytyczną i nie psuje LCP.
+     ---------------------------------------------------------------------- */
+  var heroVideo = document.querySelector('[data-hero-video]');
+
+  if (heroVideo) {
+    var shouldLoadVideo = function () {
+      // 1. Użytkownik prosił system o ograniczenie animacji — uszanuj to.
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
+
+      // 2. Wąski ekran — koszt transferu przewyższa efekt wizualny.
+      var minW = parseInt(heroVideo.getAttribute('data-min-width'), 10) || 768;
+      if (window.innerWidth < minW) return false;
+
+      // 3. Wolne łącze albo włączony tryb oszczędzania danych.
+      var conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+      if (conn) {
+        if (conn.saveData) return false;
+        if (/(^|-)2g$/.test(conn.effectiveType || '')) return false;
+      }
+
+      return true;
+    };
+
+    var startHeroVideo = function () {
+      if (heroVideo.dataset.loaded === 'true') return;
+      heroVideo.dataset.loaded = 'true';
+
+      // Kolejność ma znaczenie: WebM przed MP4, bo przy tej samej jakości
+      // waży wyraźnie mniej. Safari pominie go i weźmie MP4.
+      [
+        ['data-webm', 'video/webm'],
+        ['data-mp4', 'video/mp4']
+      ].forEach(function (pair) {
+        var src = heroVideo.getAttribute(pair[0]);
+        if (!src) return;
+        var source = document.createElement('source');
+        source.src = src;
+        source.type = pair[1];
+        heroVideo.appendChild(source);
+      });
+
+      heroVideo.load();
+
+      // Pokaż dopiero, gdy leci obraz — inaczej mignęłaby czarna klatka.
+      heroVideo.addEventListener('playing', function () {
+        heroVideo.classList.add('is-playing');
+      });
+
+      // Autoodtwarzanie bywa blokowane mimo `muted`. Odrzucona obietnica
+      // nie jest błędem — po prostu zostaje plakat.
+      var attempt = heroVideo.play();
+      if (attempt && typeof attempt.catch === 'function') {
+        attempt.catch(function () {
+          heroVideo.classList.remove('is-playing');
+        });
+      }
+    };
+
+    if (shouldLoadVideo()) {
+      /* Nagranie startuje dopiero po wczytaniu reszty strony, żeby nie
+         konkurowało o pasmo z fontami i arkuszem stylów. */
+      if (document.readyState === 'complete') startHeroVideo();
+      else window.addEventListener('load', startHeroVideo);
+
+      /* Poza ekranem odtwarzanie jest marnowaniem baterii i procesora.
+         Przy przewinięciu poniżej sekcji hero film się zatrzymuje. */
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (heroVideo.dataset.loaded !== 'true') return;
+              if (entry.isIntersecting) {
+                var p = heroVideo.play();
+                if (p && typeof p.catch === 'function') p.catch(function () {});
+              } else {
+                heroVideo.pause();
+              }
+            });
+          },
+          { threshold: 0.1 }
+        ).observe(heroVideo);
+      }
+    }
+  }
+
+  /* ----------------------------------------------------------------------
      Rok w stopce — jedno miejsce mniej do ręcznej aktualizacji
      ---------------------------------------------------------------------- */
   var year = document.querySelector('[data-year]');

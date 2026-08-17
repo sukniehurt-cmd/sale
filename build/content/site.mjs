@@ -68,6 +68,54 @@ export const site = {
   /* --- Rok założenia ---------------------------------------------------- */
   founded: '2016', // DO_UZUPELNIENIA
 
+  /* --- Wideo w sekcji hero ----------------------------------------------
+     Tło filmowe na stronie głównej. Ustaw `enabled: false`, żeby wrócić
+     do samego gradientu — reszta strony nie wymaga wtedy żadnych zmian.
+
+     Wideo NIGDY nie jest pobierane na starcie. Skrypt dociąga je dopiero
+     po sprawdzeniu warunków (szeroki ekran, brak trybu ograniczonych
+     animacji, brak oszczędzania danych), więc nie wpływa na LCP ani
+     na transfer użytkowników mobilnych. Do czasu wczytania — i zawsze
+     na telefonach — widoczny jest plakat, który wygląda jak dotychczasowe
+     tło gradientowe.
+
+     ŹRÓDŁO NAGRANIA — dwie możliwości:
+
+     1. Plik we własnym repozytorium (domyślnie):
+            webm: '/assets/video/hero.webm'
+        Zero zapytań do obcych serwerów, pełna kontrola, działa zawsze.
+
+     2. Bezpośredni adres pliku na CDN lub innym hostingu:
+            webm: 'https://cdn.twojadomena.pl/hero.webm'
+        Sensowne przy dużych plikach. Wymaga hostingu obsługującego
+        żądania zakresowe (Range) i nagłówki CORS — spełniają to
+        Cloudflare R2, Bunny, Amazon S3 i każdy zwykły serwer WWW.
+        Pamiętaj wtedy o rozszerzeniu `media-src` w nagłówku
+        Content-Security-Policy w pliku .htaccess.
+
+     CZEGO TU NIE WPISAĆ: linku do Dysku Google, YouTube ani Vimeo.
+     Dysk nie udostępnia bezpośredniego adresu pliku (zwraca stronę HTML
+     i blokuje hotlinkowanie), a YouTube i Vimeo wymagają osadzenia
+     odtwarzacza w <iframe> — co oznacza obce ciasteczka, obowiązek
+     baneru zgody i kilkaset kB cudzego JavaScriptu na ścieżce
+     krytycznej. Film z Dysku najpierw pobierz i przekoduj — polecenia
+     są w README, sekcja „Wideo w sekcji hero".
+
+     >>> DO_UZUPELNIENIA: wskaż źródło nagrania. <<<
+     Build ostrzega, jeśli pliku brakuje. */
+  heroVideo: {
+    enabled: true,
+    webm: '/assets/video/hero.webm', // preferowany — mniejszy przy tej samej jakości
+    mp4: '/assets/video/hero.mp4', // zapas dla Safari i starszych przeglądarek
+    poster: '/assets/img/hero-poster.jpg',
+    /* Poniżej tej szerokości ekranu wideo się nie ładuje (zostaje plakat).
+       768 px odcina telefony — tam koszt transferu przewyższa efekt. */
+    minWidth: 768,
+    /* Przezroczystość nagrania na tle granatu. Niżej = mocniejsza marka
+       i lepszy kontrast tekstu, wyżej = wyraźniejszy film. */
+    opacity: 0.55
+  },
+
   /* --- Ustawienia techniczne -------------------------------------------- */
   lang: 'pl-PL',
   locale: 'pl_PL',

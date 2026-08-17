@@ -226,6 +226,49 @@ export function relatedLinks(items, title = 'Sprawdź również') {
 }
 
 /* --------------------------------------------------------------------------
+   Tło wideo w sekcji hero
+   --------------------------------------------------------------------------
+   Trzy warstwy, licząc od spodu:
+     1. gradient granatowy (CSS na .hero) — zawsze obecny, nigdy nie znika,
+     2. wideo — dociągane warunkowo przez JavaScript,
+     3. przyciemnienie (scrim) — gwarantuje kontrast nagłówka niezależnie
+        od tego, jak jasna okaże się dana klatka nagrania.
+
+   Atrybut `src` celowo NIE jest ustawiony w HTML. Gdyby był, przeglądarka
+   zaczęłaby pobierać plik natychmiast — także na telefonie i przy włączonym
+   trybie ograniczonych animacji. Adresy siedzą w atrybutach `data-`,
+   a skrypt przenosi je do <source> dopiero po sprawdzeniu warunków.
+
+   aria-hidden, bo to czysta dekoracja: nagranie nie niesie treści,
+   której nie ma w tekście obok.
+   -------------------------------------------------------------------------- */
+export function heroMedia() {
+  const v = site.heroVideo;
+  if (!v || !v.enabled) return '';
+
+  const sources = [
+    v.webm ? ` data-webm="${v.webm}"` : '',
+    v.mp4 ? ` data-mp4="${v.mp4}"` : ''
+  ].join('');
+
+  /* Przezroczystość przekazywana jako zmienna CSS, żeby ustawienie
+     z site.mjs faktycznie działało, a nie było martwym zapisem. */
+  return `<div class="hero__media" aria-hidden="true" style="--hero-video-opacity:${v.opacity}">
+      <video class="hero__video"
+             data-hero-video
+             data-min-width="${v.minWidth}"
+             poster="${v.poster}"${sources}
+             preload="none"
+             muted
+             loop
+             playsinline
+             disablepictureinpicture
+             tabindex="-1"></video>
+      <div class="hero__scrim"></div>
+    </div>`;
+}
+
+/* --------------------------------------------------------------------------
    Sylwetka Tatr — dekoracja hero
    -------------------------------------------------------------------------- */
 export function mountainRange() {
