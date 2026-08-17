@@ -269,6 +269,17 @@ co oznacza obce ciasteczka (czyli powrót obowiązku baneru zgody), kilkaset kB
 cudzego JavaScriptu na ścieżce krytycznej i limity odtworzeń, przez które hero
 potrafi przestać działać przy większym ruchu.
 
+**Skąd wziąć plik:**
+
+- **To Twoje nagranie na YouTube?** Pobierz oryginał z YouTube Studio
+  (*Treści → wybierz film → menu ⋮ → Pobierz*). Dostaniesz plik w pełnej
+  jakości, bez kompresji nakładanej przy publikacji.
+- **Nagranie własne z drona lub telefonu?** Użyj oryginału — im lepszy
+  materiał wejściowy, tym lepiej znosi kompresję.
+- **Cudze nagranie?** Potrzebujesz licencji na użycie komercyjne. Darmowe
+  i czyste licencyjnie materiały górskie znajdziesz na Pexels Videos, Coverr,
+  Mixkit i Pixabay.
+
 Działają dwa źródła:
 
 | Źródło | Zapis w `site.mjs` | Kiedy |
@@ -280,12 +291,27 @@ Przy źródle zewnętrznym dopisz jego adres do `media-src` w nagłówku
 `Content-Security-Policy` w pliku `.htaccess` — inaczej przeglądarka zablokuje
 odtwarzanie.
 
-### Przygotowanie pliku
+### Przygotowanie pliku — jedna komenda
 
 Nagranie z telefonu czy drona ma zwykle 50–300 MB — na stronę nadaje się plik
 **8–15 sekund i poniżej 3 MB**. Tło jest przyciemnione i rozmyte ruchem, więc
 mocna kompresja nie jest widoczna, a ogromny plik zjadłby cały zysk
 z pozostałych optymalizacji.
+
+Skrypt robi wszystko naraz — przycina, koduje oba formaty i wycina plakat:
+
+```bash
+./build/prepare-video.sh nagranie.mp4          # pierwsze 10 sekund
+./build/prepare-video.sh nagranie.mp4 12       # od 12. sekundy
+./build/prepare-video.sh nagranie.mp4 12 8     # od 12. sekundy, długość 8 s
+npm run build
+```
+
+Wymaga `ffmpeg` (`sudo apt install ffmpeg` albo `brew install ffmpeg`).
+Skrypt ostrzeże, jeśli plik wyjdzie za ciężki.
+
+<details>
+<summary>Te same kroki ręcznie</summary>
 
 ```bash
 # 1. Przytnij do 10 sekund (od 5. sekundy) i usuń dźwięk
@@ -306,11 +332,13 @@ czysty balast), `-movflags +faststart` przenosi metadane na początek pliku,
 dzięki czemu odtwarzanie startuje przed pobraniem całości, a `crf` steruje
 jakością — wyższa liczba to mniejszy plik.
 
-Po podmianie wygeneruj też plakat pasujący do pierwszej klatki nagrania:
+Plakat z pierwszej klatki:
 
 ```bash
 ffmpeg -i assets/video/hero.mp4 -ss 0 -frames:v 1 -q:v 3 assets/img/hero-poster.jpg
 ```
+
+</details>
 
 ### Jak to działa
 
