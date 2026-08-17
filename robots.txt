@@ -1,0 +1,4 @@
+# Kopia robocza serwisu — wyłączona z indeksowania.
+# Wersja produkcyjna ma własny robots.txt zezwalający na indeksowanie.
+User-agent: *
+Disallow: /
