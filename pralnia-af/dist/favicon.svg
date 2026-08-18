@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Pralnia AF">
+  <rect width="64" height="64" rx="14" fill="#2a5b84"/>
+  <path d="M32 12c8.5 10.2 13 17.3 13 22.7C45 42.6 39.2 48 32 48s-13-5.4-13-13.3C19 29.3 23.5 22.2 32 12z" fill="#b8d3ea"/>
+  <path d="M32 20c5 6.4 7.5 10.8 7.5 14.2 0 4.3-3.4 7.6-7.5 7.6v-21.8z" fill="#ffffff" opacity=".55"/>
+</svg>

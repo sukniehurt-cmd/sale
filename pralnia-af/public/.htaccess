@@ -1,0 +1,84 @@
+# ==============================================================
+#  Pralnia AF — konfiguracja serwera Apache
+#  Plik działa na typowym hostingu współdzielonym (LiteSpeed też go czyta).
+#  Jeżeli serwer nie obsługuje któregoś modułu, sekcja jest po prostu pomijana.
+# ==============================================================
+
+# --- Strona błędu 404 -----------------------------------------
+ErrorDocument 404 /404.html
+
+# --- Przekierowanie na HTTPS i wersję bez www -----------------
+# Odkomentuj po podpięciu certyfikatu SSL (na hostingach zwykle jest z automatu).
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # RewriteCond %{HTTPS} !=on
+  # RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+  # RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  # RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+</IfModule>
+
+# --- Kompresja ------------------------------------------------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css
+  AddOutputFilterByType DEFLATE application/javascript application/x-javascript
+  AddOutputFilterByType DEFLATE application/json application/xml
+  AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+<IfModule mod_brotli.c>
+  AddOutputFilterByType BROTLI_COMPRESS text/html text/css application/javascript
+  AddOutputFilterByType BROTLI_COMPRESS application/json image/svg+xml
+</IfModule>
+
+# --- Pamięć podręczna przeglądarki ----------------------------
+# Pliki w /assets/ mają skrót w nazwie, więc mogą leżeć w cache rok.
+# Sam index.html nie może — inaczej klient nie zobaczy zmian na stronie.
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/html                 "access plus 0 seconds"
+  ExpiresByType text/css                  "access plus 1 year"
+  ExpiresByType application/javascript    "access plus 1 year"
+  ExpiresByType image/jpeg                "access plus 6 months"
+  ExpiresByType image/png                 "access plus 6 months"
+  ExpiresByType image/webp                "access plus 6 months"
+  ExpiresByType image/svg+xml             "access plus 6 months"
+  ExpiresByType video/mp4                 "access plus 6 months"
+  ExpiresByType font/woff2                "access plus 1 year"
+  ExpiresByType application/manifest+json "access plus 1 week"
+</IfModule>
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(css|js|woff2)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+
+  # --- Nagłówki bezpieczeństwa --------------------------------
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+</IfModule>
+
+# --- Typy MIME (część hostingów nie zna woff2 i webmanifest) ---
+<IfModule mod_mime.c>
+  AddType font/woff2 .woff2
+  AddType application/manifest+json .webmanifest
+  AddType image/svg+xml .svg
+  AddType video/mp4 .mp4
+</IfModule>
+
+# --- Kodowanie znaków -----------------------------------------
+AddDefaultCharset UTF-8
+
+# --- Blokada dostępu do plików pomocniczych -------------------
+<FilesMatch "^(\.htaccess|\.env|.*\.log|.*\.md|package(-lock)?\.json)$">
+  Require all denied
+</FilesMatch>
+
+# --- Katalogi bez listingu ------------------------------------
+Options -Indexes

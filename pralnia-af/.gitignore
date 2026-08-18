@@ -1,0 +1,14 @@
+node_modules/
+*.local
+*.zip
+.env
+.env.*
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.log
+
+# Plik package-lock.json trzymamy w repozytorium (powtarzalne wersje bibliotek).
+# Nadpisuje regułę z .gitignore w katalogu nadrzędnym.
+!package-lock.json
