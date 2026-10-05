@@ -1,0 +1,505 @@
+<title>Nocny Patrol</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Monoton&family=Orbitron:wght@500;900&family=VT323&display=swap" rel="stylesheet">
+<style>
+  /* Layout: jeden ekran telewizora 16:9, pod nim pasek odtwarzacza jak z magnetowidu */
+  :root {
+    --bg: #07000f;
+    --fg: #f6ecff;
+    --mute: #a48cc4;
+    --pink: #ff3d8b;
+    --cyan: #2ff3ff;
+    --line: #2d1252;
+    --f-display: 'Monoton', 'Orbitron', system-ui, sans-serif;
+    --f-body: 'Orbitron', system-ui, sans-serif;
+    --f-vhs: 'VT323', ui-monospace, monospace;
+    color-scheme: dark;
+  }
+  body { background: var(--bg); color: var(--fg); font-family: var(--f-body); }
+  .wrap { max-width: 1120px; margin-inline: auto; padding-inline: 16px; padding-block: 24px 40px; display: flex; flex-direction: column; gap: 16px; }
+  header { display: flex; flex-direction: column; gap: 4px; }
+  h1 { margin: 0; font-family: var(--f-display); font-weight: 400; font-size: clamp(28px, 6vw, 52px); letter-spacing: .04em; color: var(--pink); text-shadow: 0 0 18px var(--pink), 0 0 2px #fff; text-wrap: balance; }
+  header p { margin: 0; color: var(--mute); font-size: 13px; letter-spacing: .12em; text-transform: uppercase; }
+  .stage { position: relative; border: 2px solid var(--line); border-radius: 18px; overflow: hidden; background: #000; box-shadow: 0 0 40px rgba(255, 61, 139, .35), inset 0 0 30px rgba(0, 0, 0, .8); aspect-ratio: 16 / 9; max-width: 100%; }
+  canvas { display: block; width: 100%; height: 100%; }
+  #big { position: absolute; inset: 0; margin: auto; width: max-content; height: max-content; padding: 16px 28px; font: 900 clamp(14px, 2.6vw, 22px) var(--f-body); letter-spacing: .15em; color: #fff; background: rgba(10, 0, 30, .72); border: 2px solid var(--cyan); border-radius: 4px; cursor: pointer; text-shadow: 0 0 10px var(--cyan); box-shadow: 0 0 22px var(--cyan), inset 0 0 14px rgba(47, 243, 255, .4); }
+  #big:hover { background: rgba(47, 243, 255, .2); }
+  button:focus-visible { outline: 3px solid var(--pink); outline-offset: 3px; }
+  .bar { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  #pp { flex: none; width: 48px; height: 48px; border-radius: 50%; border: 2px solid var(--pink); background: transparent; color: var(--pink); font-size: 16px; cursor: pointer; box-shadow: 0 0 12px rgba(255, 61, 139, .6); }
+  .track { flex: 1 1 200px; min-width: 0; height: 8px; border-radius: 4px; background: var(--line); overflow: hidden; }
+  #fill { width: 0; height: 100%; background: linear-gradient(90deg, var(--pink), var(--cyan)); box-shadow: 0 0 10px var(--pink); }
+  #tm { font-family: var(--f-vhs); font-size: 24px; color: var(--cyan); min-width: 7.5ch; text-align: right; font-variant-numeric: tabular-nums; }
+  .hint { margin: 0; color: var(--mute); font-size: 12px; line-height: 1.6; max-width: 70ch; }
+</style>
+
+<main class="wrap">
+  <header>
+    <h1>Nocny Patrol</h1>
+    <p>Synth Rider · 1986 · teledysk 1:00</p>
+  </header>
+  <div class="stage">
+    <canvas id="c" width="1280" height="720" aria-label="Teledysk w stylu lat 80.: neonowe słońce, siatka, palmy i samochód"></canvas>
+    <button id="big" type="button">▶ ODTWÓRZ</button>
+  </div>
+  <div class="bar">
+    <button id="pp" type="button" aria-label="Odtwórz lub wstrzymaj">▶</button>
+    <div class="track"><div id="fill"></div></div>
+    <span id="tm">0:00 / 1:00</span>
+  </div>
+  <p class="hint">Włącz dźwięk. Muzykę (syntezator, bas, automat perkusyjny) generuje przeglądarka w czasie rzeczywistym, obraz rysuje się na żywo. 120 BPM, a minor, równo 60 sekund.</p>
+</main>
+
+<script>
+const W = 1280, H = 720, HOR = 400, DUR = 60, STEP = 0.125;
+const cv = document.getElementById('c'), g = cv.getContext('2d');
+const big = document.getElementById('big'), pp = document.getElementById('pp');
+const fillEl = document.getElementById('fill'), tmEl = document.getElementById('tm');
+
+/* ---------- pomocnicze ---------- */
+const rnd = i => { const x = Math.sin(i * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const sm = x => { x = clamp(x); return x * x * (3 - 2 * x); };
+const hex = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
+const mixc = (a, b, k) => a.map((v, i) => Math.round(v + (b[i] - v) * k));
+const css = c => `rgb(${c[0]},${c[1]},${c[2]})`;
+const fmt = s => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
+
+/* ---------- obraz ---------- */
+// palety: niebo góra, niebo środek, horyzont, siatka
+const PAL = [
+  ['#0a0220', '#4b1480', '#ff3d8b', '#ff2fd0'],
+  ['#05001f', '#2a0a6b', '#ff1f7a', '#2ff3ff'],
+  ['#01051a', '#052a5a', '#00d9ff', '#ff2fd0'],
+  ['#0a0220', '#4b1480', '#ff3d8b', '#ff2fd0']
+].map(p => p.map(hex));
+const BOUNDS = [24, 40, 52];
+function palette(t) {
+  let a = 0, f = 0;
+  for (let i = 0; i < 3; i++) {
+    if (t >= BOUNDS[i] + .5) a = i + 1;
+    else { if (t > BOUNDS[i] - .5) { a = i; f = t - (BOUNDS[i] - .5); } break; }
+  }
+  const A = PAL[a], B = PAL[Math.min(a + 1, 3)];
+  return A.map((c, i) => mixc(c, B[i], f));
+}
+
+const sc = document.createElement('canvas'); sc.width = sc.height = 420;
+const sg = sc.getContext('2d');
+function drawSun(t, cy, R, pulse) {
+  sg.globalCompositeOperation = 'source-over';
+  sg.clearRect(0, 0, 420, 420);
+  const c = 210, gr = sg.createLinearGradient(0, c - R, 0, c + R);
+  gr.addColorStop(0, '#fff04d'); gr.addColorStop(.5, '#ff9a3c'); gr.addColorStop(1, '#ff1f8e');
+  sg.fillStyle = gr; sg.beginPath(); sg.arc(c, c, R, 0, 7); sg.fill();
+  sg.globalCompositeOperation = 'destination-out';
+  for (let k = 0; k < 6; k++) sg.fillRect(0, c + R * .1 + k * k * R * .012 + k * R * .09, 420, 3 + k * 2.4 * (1 + .2 * pulse));
+  g.save();
+  g.beginPath(); g.rect(0, 0, W, HOR); g.clip();
+  g.shadowColor = '#ff2d95'; g.shadowBlur = 40 + 20 * pulse;
+  g.drawImage(sc, 640 - 210, cy - 210);
+  g.restore();
+}
+
+function ridge(a, line) {
+  g.save(); g.globalAlpha = a;
+  g.beginPath(); g.moveTo(0, HOR);
+  for (let x = 0; x <= W; x += 40) {
+    const k = Math.abs(x - 640) / 640;
+    g.lineTo(x, HOR - (30 + 100 * k) * (.35 + .65 * rnd(x / 40 + 7)));
+  }
+  g.lineTo(W, HOR); g.closePath();
+  g.fillStyle = '#12052a'; g.fill();
+  g.strokeStyle = line; g.lineWidth = 2; g.shadowColor = line; g.shadowBlur = 12; g.stroke();
+  g.restore();
+}
+
+function city(a, t) {
+  g.save(); g.globalAlpha = a;
+  const cols = ['#ff3d8b', '#2ff3ff', '#ffe14d'];
+  for (let i = 0; i < 22; i++) {
+    const x = i * 58 - 10 + rnd(i + 30) * 10, w = 48 + rnd(i) * 40;
+    const h = 70 + rnd(i + 60) * 190 * (.45 + .55 * Math.abs(x - 640) / 640), y = HOR - h;
+    g.fillStyle = '#05051a'; g.fillRect(x, y, w, h);
+    g.strokeStyle = '#2ff3ff'; g.lineWidth = 1.5; g.strokeRect(x, y, w, h);
+    for (let r = 10; r < h - 6; r += 14) for (let c = 6; c < w - 8; c += 12) {
+      const n = rnd(i * 100 + r * 7 + c);
+      if (n > .6 && (n < .93 || Math.sin(t * 3 + n * 99) > 0)) { g.fillStyle = cols[Math.floor(n * 31) % 3]; g.globalAlpha = a * .85; g.fillRect(x + c, y + r, 5, 7); }
+    }
+    g.globalAlpha = a;
+  }
+  g.restore();
+}
+
+function floor(t, grid, pulse) {
+  const gr = g.createLinearGradient(0, HOR, 0, H);
+  gr.addColorStop(0, '#1d0038'); gr.addColorStop(1, '#08001a');
+  g.fillStyle = gr; g.fillRect(0, HOR, W, H - HOR);
+  g.save();
+  g.strokeStyle = css(grid); g.shadowColor = css(grid); g.shadowBlur = 8 + 14 * pulse;
+  const s = (t * 1.2) % 1;
+  for (let i = 0; i < 14; i++) {
+    const z = (i + s) / 14, y = HOR + (H - HOR) * z * z;
+    g.globalAlpha = .25 + .75 * z; g.lineWidth = 1 + 2 * z;
+    g.beginPath(); g.moveTo(0, y); g.lineTo(W, y); g.stroke();
+  }
+  g.globalAlpha = .8; g.lineWidth = 2;
+  for (let j = -16; j <= 16; j++) { g.beginPath(); g.moveTo(640, HOR); g.lineTo(640 + j * 150, H); g.stroke(); }
+  g.globalAlpha = 1; g.lineWidth = 3;
+  g.beginPath(); g.moveTo(0, HOR); g.lineTo(W, HOR); g.stroke();
+  g.restore();
+}
+
+function palm(x, dir, t, rim) {
+  const sway = Math.sin(t * 1.3 + x) * 10, bx = x, by = 680;
+  const tx = x + dir * 50 + sway, ty = 250;
+  g.save(); g.lineCap = 'round';
+  const trunk = (w, col) => { g.strokeStyle = col; g.lineWidth = w; g.beginPath(); g.moveTo(bx, by); g.quadraticCurveTo(x - dir * 40, 470, tx, ty); g.stroke(); };
+  const fronds = (w, col) => {
+    g.strokeStyle = col; g.lineWidth = w;
+    for (let i = 0; i < 8; i++) {
+      const a = Math.PI + i / 7 * Math.PI, L = 170 + rnd(i + x) * 40 + Math.sin(t * 1.7 + i) * 6;
+      g.beginPath(); g.moveTo(tx, ty);
+      g.quadraticCurveTo(tx + Math.cos(a) * L * .5, ty + Math.sin(a) * L * .5 - 30, tx + Math.cos(a) * L, ty + Math.sin(a) * L * .6 + 55);
+      g.stroke();
+    }
+  };
+  g.shadowColor = rim; g.shadowBlur = 14;
+  trunk(20, rim); fronds(11, rim);
+  g.shadowBlur = 0;
+  trunk(15, '#08000f'); fronds(7, '#08000f');
+  g.restore();
+}
+
+function car(t, pulse) {
+  const cx = 640 + Math.sin(t * .7) * 50, cy = 610 + Math.sin(t * 9) * 1.2;
+  g.save();
+  g.fillStyle = 'rgba(0,0,0,.55)'; g.beginPath(); g.ellipse(cx, cy + 32, 170, 14, 0, 0, 7); g.fill();
+  g.fillStyle = '#10001f'; g.strokeStyle = '#ff3d8b'; g.lineWidth = 2; g.shadowColor = '#ff3d8b'; g.shadowBlur = 14;
+  g.fillRect(cx - 130, cy - 82, 260, 9);
+  g.beginPath(); g.moveTo(cx - 85, cy - 72); g.lineTo(cx + 85, cy - 72); g.lineTo(cx + 120, cy - 30); g.lineTo(cx - 120, cy - 30); g.closePath(); g.fill(); g.stroke();
+  g.beginPath(); g.roundRect(cx - 150, cy - 35, 300, 50, 10); g.fill(); g.stroke();
+  g.shadowBlur = 0;
+  const wg = g.createLinearGradient(cx - 70, 0, cx + 70, 0);
+  wg.addColorStop(0, 'rgba(47,243,255,.5)'); wg.addColorStop(1, 'rgba(255,61,139,.5)');
+  g.fillStyle = wg; g.beginPath(); g.moveTo(cx - 66, cy - 66); g.lineTo(cx + 66, cy - 66); g.lineTo(cx + 88, cy - 36); g.lineTo(cx - 88, cy - 36); g.closePath(); g.fill();
+  g.fillStyle = '#ff1744'; g.shadowColor = '#ff1744'; g.shadowBlur = 22 + 14 * pulse;
+  g.fillRect(cx - 138, cy - 24, 112, 9); g.fillRect(cx + 26, cy - 24, 112, 9);
+  g.shadowBlur = 0;
+  g.fillStyle = '#e8e8ff'; g.fillRect(cx - 26, cy - 8, 52, 16);
+  g.fillStyle = '#000'; g.fillRect(cx - 142, cy + 12, 52, 24); g.fillRect(cx + 90, cy + 12, 52, 24);
+  g.restore();
+}
+
+function shapes(a, t) {
+  const cols = ['#2ff3ff', '#ffe14d', '#ff3d8b', '#ffffff'];
+  g.save(); g.globalAlpha = a; g.lineWidth = 4; g.lineJoin = 'round';
+  for (let i = 0; i < 36; i++) {
+    const s = 14 + rnd(i + 7) * 34;
+    const x = ((rnd(i) * (W + 200) + t * (25 + rnd(i + 9) * 70)) % (W + 200)) - 100;
+    const y = 60 + rnd(i + 3) * (H - 120) + Math.sin(t * 2 + i) * 14;
+    g.save(); g.translate(x, y); g.rotate(t * (rnd(i + 5) - .5) * 2);
+    g.strokeStyle = g.fillStyle = cols[i % 4]; g.shadowColor = cols[i % 4]; g.shadowBlur = 12;
+    g.beginPath();
+    if (i % 4 === 0) { g.moveTo(0, -s); g.lineTo(s, s); g.lineTo(-s, s); g.closePath(); g.stroke(); }
+    else if (i % 4 === 1) { g.arc(0, 0, s, 0, 7); g.stroke(); }
+    else if (i % 4 === 2) { g.moveTo(-s * 1.5, 0); for (let k = 1; k <= 6; k++) g.lineTo(-s * 1.5 + k * s / 2, k % 2 ? -s / 2 : s / 2); g.stroke(); }
+    else { g.rect(-s / 3, -s, s * 2 / 3, s * 2); g.rect(-s, -s / 3, s * 2, s * 2 / 3); g.fill(); }
+    g.restore();
+  }
+  g.restore();
+}
+
+function lasers(a, t) {
+  g.save(); g.globalCompositeOperation = 'lighter'; g.lineWidth = 6; g.lineCap = 'round';
+  for (const side of [0, 1]) for (let k = 0; k < 3; k++) {
+    const th = .35 + .25 * Math.sin(t * 2.2 + k * 1.3 + side) + k * .18;
+    const x0 = side ? W : 0, dx = (side ? -1 : 1) * Math.sin(th), dy = Math.cos(th);
+    g.strokeStyle = k % 2 ? `rgba(47,243,255,${.4 * a})` : `rgba(255,61,139,${.45 * a})`;
+    g.beginPath(); g.moveTo(x0, 0); g.lineTo(x0 + dx * 1600, dy * 1600); g.stroke();
+  }
+  g.restore();
+}
+
+function cube(a, t) {
+  g.save(); g.globalAlpha = a; g.lineCap = 'round';
+  const cx = 640, cy = 215;
+  const draw = (size, ry, rx, col, w) => {
+    const v = [];
+    for (let i = 0; i < 8; i++) {
+      let x = (i & 1 ? 1 : -1), y = (i & 2 ? 1 : -1), z = (i & 4 ? 1 : -1);
+      let x1 = x * Math.cos(ry) + z * Math.sin(ry), z1 = -x * Math.sin(ry) + z * Math.cos(ry);
+      let y1 = y * Math.cos(rx) - z1 * Math.sin(rx), z2 = y * Math.sin(rx) + z1 * Math.cos(rx);
+      const k = 520 / (z2 + 4.5) * size;
+      v.push([cx + x1 * k, cy + y1 * k]);
+    }
+    g.strokeStyle = col; g.lineWidth = w; g.shadowColor = col; g.shadowBlur = 18;
+    g.beginPath();
+    for (let i = 0; i < 8; i++) for (const b of [1, 2, 4]) if (!(i & b)) { g.moveTo(v[i][0], v[i][1]); g.lineTo(v[i | b][0], v[i | b][1]); }
+    g.stroke();
+  };
+  draw(.34, t * .9, t * .6, '#2ff3ff', 3);
+  draw(.17, -t * 1.3, t * .8, '#ff3d8b', 2.5);
+  g.restore();
+}
+
+function neonText(txt, x, y, size, font, a, o = {}) {
+  g.save(); g.globalAlpha = a; g.textAlign = 'center'; g.textBaseline = 'middle';
+  g.font = `${o.weight || 900} ${size}px ${font}`;
+  const mw = g.measureText(txt).width;
+  if (mw > W - 80) { size *= (W - 80) / mw; g.font = `${o.weight || 900} ${size}px ${font}`; }
+  if (o.spacing) g.letterSpacing = o.spacing;
+  if (o.chroma) { g.fillStyle = 'rgba(255,0,80,.75)'; g.fillText(txt, x - o.chroma, y); g.fillStyle = 'rgba(0,255,255,.75)'; g.fillText(txt, x + o.chroma, y); }
+  const gr = g.createLinearGradient(0, y - size / 2, 0, y + size / 2);
+  if (o.plain) { gr.addColorStop(0, '#fff'); gr.addColorStop(1, '#fff'); }
+  else {
+    gr.addColorStop(0, '#ffffff'); gr.addColorStop(.45, '#9fdcff'); gr.addColorStop(.5, '#2a1a5e');
+    gr.addColorStop(.55, '#ff7ac8'); gr.addColorStop(1, '#ffe8f6');
+  }
+  g.shadowColor = o.glow || '#ff2d95'; g.shadowBlur = 24;
+  g.lineWidth = Math.max(2, size / 22); g.strokeStyle = o.glow || '#ff2d95'; g.lineJoin = 'round';
+  g.strokeText(txt, x, y);
+  g.shadowBlur = 0; g.fillStyle = gr; g.fillText(txt, x, y);
+  g.restore();
+}
+
+const LYR = [
+  [8, 12, 'Neonowe noce, chrom i szkło'],
+  [12, 16, 'Jadę przez miasto, gra radio'],
+  [16, 20, 'Różowe niebo, fiolet w oczach'],
+  [20, 24, 'Kasety grają, nie zgaśnie to'],
+  [24.4, 32, 'OSIEMDZIESIĄTE!|Tańcz do samego rana'],
+  [32, 40, 'Synth i laser|cała noc jest nasza'],
+  [40.3, 44.2, 'Pędzimy w przyszłość'],
+  [44.2, 48, 'w blasku VHS'],
+  [48, 53, 'Retro zostaje|na zawsze']
+];
+const GLITCH = [[7.85, 8.15], [23.85, 24.2], [39.85, 40.25], [51.8, 52.25]];
+
+// kreski skanowania i winieta
+const slc = document.createElement('canvas'); slc.width = 4; slc.height = 4;
+{ const x = slc.getContext('2d'); x.fillStyle = 'rgba(0,0,0,.25)'; x.fillRect(0, 0, 4, 1.6); }
+const scan = g.createPattern(slc, 'repeat');
+
+function render(t) {
+  const [top, mid, hor, grid] = palette(t);
+  const ph = (t * 2) % 1, pulse = (t >= 4 ? 1 : .2) * Math.exp(-ph * 5);
+  const chorusA = clamp(Math.min((t - 24) / .7, (40 - t) / .7));
+  const bridgeA = clamp(Math.min((t - 40) / .7, (52 - t) / .7));
+
+  // niebo
+  let gr = g.createLinearGradient(0, 0, 0, HOR);
+  gr.addColorStop(0, css(top)); gr.addColorStop(.6, css(mid)); gr.addColorStop(1, css(hor));
+  g.fillStyle = gr; g.fillRect(0, 0, W, HOR + 1);
+  for (let i = 0; i < 110; i++) {
+    const s = rnd(i + 900) < .1 ? 2.5 : 1.3;
+    g.fillStyle = `rgba(255,255,255,${.35 + .65 * Math.abs(Math.sin(t * 1.5 + i))})`;
+    g.fillRect(rnd(i) * W, rnd(i + 500) * HOR * .85, s, s);
+  }
+
+  // słońce: wschodzi na początku, zachodzi na końcu
+  let cy = HOR - 40;
+  if (t < 8) cy = HOR - 40 + 220 * (1 - sm(t / 8));
+  if (t > 52) cy = HOR - 40 + 240 * sm((t - 52) / 8);
+  drawSun(t, cy, 170 + 8 * pulse * chorusA, pulse);
+
+  // horyzont
+  ridge(1 - bridgeA, css(grid));
+  if (bridgeA > 0) city(bridgeA, t);
+  floor(t, grid, pulse);
+
+  // palmy i auto
+  const palmA = t > 6 && (t < 40 || t > 52) ? 1 : 0;
+  if (palmA) { palm(120, 1, t, css(hor)); palm(1160, -1, t, css(hor)); }
+  if (t > 9 && t < 53) car(t, pulse);
+
+  if (chorusA > 0) { lasers(chorusA, t); shapes(chorusA, t); }
+  if (bridgeA > 0) cube(bridgeA, t);
+
+  // tytuł
+  if (t < 8.2) {
+    const a = Math.min(sm((t - 1) / 1.5), 1 - sm((t - 7) / 1));
+    if (a > 0) {
+      neonText('NOCNY PATROL', 640, 230, 118, 'Monoton', a, { weight: 400, plain: true, glow: '#ff2d95', chroma: 3 });
+      neonText('SYNTH RIDER · 1986', 640, 320, 24, 'Orbitron', a, { weight: 500, plain: true, glow: '#2ff3ff', spacing: '8px' });
+    }
+  }
+  if (t >= 53) {
+    const a = sm((t - 53.3) / 1.5);
+    neonText('NOCNY PATROL', 640, 190, 100, 'Monoton', a, { weight: 400, plain: true, chroma: 3 });
+    neonText('KONIEC', 640, 270, 34, 'Orbitron', a, { weight: 900, plain: true, glow: '#2ff3ff', spacing: '14px' });
+  }
+
+  // tekst piosenki
+  for (const [a0, b0, txt] of LYR) {
+    if (t < a0 || t > b0) continue;
+    const fade = clamp(Math.min((t - a0) / .25, (b0 - t) / .25));
+    const lines = txt.split('|'), isChorus = a0 >= 24 && a0 < 40;
+    lines.forEach((ln, i) => {
+      let s = ln;
+      if (!isChorus) s = ln.slice(0, Math.ceil(ln.length * clamp((t - a0) / .7)));
+      const sz = lines.length > 1 ? (i ? 42 : 84) : 54;
+      const pop = isChorus && i === 0 ? 1 + .07 * pulse : 1;
+      const y = lines.length > 1 ? (i ? 175 : 95) : 105;
+      neonText(s, 640, y, sz * pop, 'Orbitron', fade, { chroma: isChorus ? 3 : 2, glow: bridgeA > 0 ? '#2ff3ff' : '#ff2d95' });
+    });
+  }
+
+  // zakłócenia VHS
+  if (GLITCH.some(([a, b]) => t > a && t < b) || t % 11 > 10.85) {
+    const seed = Math.floor(t * 30);
+    for (let k = 0; k < 7; k++) {
+      const y = rnd(seed + k) * H, h = 10 + rnd(seed + k + 50) * 50, dx = (rnd(seed + k + 99) - .5) * 90;
+      g.drawImage(cv, 0, y, W, h, dx, y, W, h);
+    }
+  }
+
+  // nakładki: linie, winieta, wskaźniki magnetowidu
+  g.fillStyle = scan; g.fillRect(0, 0, W, H);
+  const vg = g.createRadialGradient(640, 360, 300, 640, 360, 820);
+  vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(0,0,0,.55)');
+  g.fillStyle = vg; g.fillRect(0, 0, W, H);
+  g.save();
+  g.font = '30px VT323, monospace'; g.fillStyle = '#fff'; g.shadowColor = '#2ff3ff'; g.shadowBlur = 6;
+  g.textBaseline = 'alphabetic'; g.textAlign = 'left';
+  g.fillText('PLAY', 40, 56);
+  g.textAlign = 'right'; g.fillText('SP  ' + fmt(t), W - 40, 56);
+  g.textAlign = 'left'; g.fillText('SEP. 12 1986', 40, H - 36);
+  g.restore();
+
+  // wejście i wyjście z czerni
+  const black = Math.max(1 - clamp(t / 1), clamp((t - 58.5) / 1.5));
+  if (black > 0) { g.fillStyle = `rgba(0,0,0,${black})`; g.fillRect(0, 0, W, H); }
+}
+
+/* ---------- dźwięk ---------- */
+const ROOTS = [33, 29, 36, 31];                       // A F C G
+const CHORDS = [[57, 60, 64], [53, 57, 60], [60, 64, 67], [55, 59, 62]];
+const LEAD = [
+  [[0, 76, 3], [4, 72, 2], [6, 74, 2], [8, 76, 4], [12, 79, 4]],
+  [[0, 77, 3], [4, 74, 2], [6, 76, 2], [8, 77, 4], [12, 81, 4]],
+  [[0, 76, 3], [4, 79, 2], [6, 76, 2], [8, 72, 4], [12, 74, 4]],
+  [[0, 74, 3], [4, 71, 2], [6, 74, 2], [8, 79, 4], [12, 76, 4]]
+];
+const mf = n => 440 * 2 ** ((n - 69) / 12);
+let ac, master, fx, noiseBuf, timer, step = 0, t0 = 0;
+
+function initAudio() {
+  ac = new (window.AudioContext || window.webkitAudioContext)();
+  noiseBuf = ac.createBuffer(1, ac.sampleRate, ac.sampleRate);
+  const d = noiseBuf.getChannelData(0);
+  for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+}
+function buildBus() {
+  master = ac.createGain();
+  const comp = ac.createDynamicsCompressor();
+  master.connect(comp); comp.connect(ac.destination);
+  fx = ac.createGain();
+  const dl = ac.createDelay(1), fb = ac.createGain(), wet = ac.createGain();
+  dl.delayTime.value = .375; fb.gain.value = .38; wet.gain.value = .5;
+  fx.connect(dl); dl.connect(fb); fb.connect(dl); dl.connect(wet); wet.connect(master);
+}
+function tone(type, f, t, d, v, o = {}) {
+  const os = ac.createOscillator(), gn = ac.createGain(), fl = ac.createBiquadFilter();
+  os.type = type; os.frequency.value = f; if (o.det) os.detune.value = o.det;
+  fl.type = 'lowpass'; fl.frequency.value = o.lp || 2000;
+  const a = o.att || .005, r = o.rel || .05;
+  gn.gain.setValueAtTime(.0001, t);
+  gn.gain.linearRampToValueAtTime(v, t + a);
+  gn.gain.setValueAtTime(v, t + Math.max(a, d - r));
+  gn.gain.linearRampToValueAtTime(.0001, t + d);
+  os.connect(fl); fl.connect(gn); gn.connect(master); if (o.fx) gn.connect(fx);
+  os.start(t); os.stop(t + d + .05);
+}
+function noise(t, d, type, freq, v, send) {
+  const s = ac.createBufferSource(), fl = ac.createBiquadFilter(), gn = ac.createGain();
+  s.buffer = noiseBuf; s.loop = true; fl.type = type; fl.frequency.value = freq;
+  gn.gain.setValueAtTime(v, t); gn.gain.exponentialRampToValueAtTime(.001, t + d);
+  s.connect(fl); fl.connect(gn); gn.connect(master); if (send) gn.connect(fx);
+  s.start(t, Math.random() * .5); s.stop(t + d + .02);
+}
+function kick(t) {
+  const o = ac.createOscillator(), gn = ac.createGain();
+  o.frequency.setValueAtTime(160, t); o.frequency.exponentialRampToValueAtTime(42, t + .12);
+  gn.gain.setValueAtTime(.95, t); gn.gain.exponentialRampToValueAtTime(.001, t + .4);
+  o.connect(gn); gn.connect(master); o.start(t); o.stop(t + .45);
+}
+function tom(t, f) {
+  const o = ac.createOscillator(), gn = ac.createGain();
+  o.frequency.setValueAtTime(f, t); o.frequency.exponentialRampToValueAtTime(f * .55, t + .2);
+  gn.gain.setValueAtTime(.6, t); gn.gain.exponentialRampToValueAtTime(.001, t + .25);
+  o.connect(gn); gn.connect(master); o.start(t); o.stop(t + .3);
+}
+function snare(t, v = .3) { noise(t, .22, 'highpass', 1500, v, true); tone('triangle', 200, t, .1, .25, { lp: 1500 }); }
+
+function playStep(s, t) {
+  const bar = Math.floor(s / 16), p = s % 16, ch = bar % 4;
+  const breakdown = bar === 20 || bar === 21;
+  const chorus = bar >= 12 && bar < 20, outro = bar >= 26;
+
+  if (p === 0) for (const n of CHORDS[ch]) for (const det of [-8, 8]) tone('sawtooth', mf(n), t, 2.1, .04, { det, lp: 1200, att: .4, rel: .6 });
+  if (bar >= 2 && p % 2 === 0) tone('sawtooth', mf(ROOTS[ch] + (p % 4 === 2 ? 12 : 0)), t, .2, .22, { lp: 520, rel: .08 });
+  if (bar >= 2 && p % 4 === 0 && !breakdown) kick(t);
+  if (bar >= 4 && (p === 4 || p === 12) && !breakdown) snare(t);
+  if (bar >= 1 && p % 2 === 0) noise(t, p % 4 === 2 ? .12 : .04, 'highpass', 7000, p % 4 === 2 ? .1 : .07);
+  if (chorus && p % 2) noise(t, .03, 'highpass', 8000, .04);
+  if (bar >= 4 && bar < 28) tone('square', mf(CHORDS[ch][[0, 1, 2, 1][p % 4]] + (chorus ? 24 : 12)), t, .12, breakdown ? .05 : .033, { lp: 3200, fx: true });
+  if (chorus || (bar >= 22 && bar < 28)) for (const [at, n, len] of LEAD[ch]) if (at === p) {
+    const v = outro ? .05 : .07, d = len * STEP;
+    tone('sawtooth', mf(n), t, d, v, { lp: 2800, det: -7, att: .01, rel: .12, fx: true });
+    tone('square', mf(n), t, d, v * .6, { lp: 2400, det: 7, att: .01, rel: .12 });
+  }
+  if (p === 0 && (bar === 4 || bar === 12 || bar === 22 || bar === 26)) noise(t, 1.3, 'highpass', 3000, .14, true);
+  if (p >= 12 && (bar === 11 || bar === 19 || bar === 25)) { snare(t, .12 + (p - 12) * .08); if (bar === 11) tom(t, 200 - (p - 12) * 25); }
+}
+function tick() {
+  while (step < DUR / STEP && t0 + step * STEP < ac.currentTime + 1.2) { playStep(step, t0 + step * STEP); step++; }
+}
+function stopAudio() {
+  clearInterval(timer);
+  if (master) { master.gain.cancelScheduledValues(0); master.disconnect(); }
+}
+
+/* ---------- odtwarzacz ---------- */
+let state = 'idle', raf = 0;
+async function start() {
+  if (!ac) initAudio();
+  await ac.resume();
+  stopAudio(); buildBus();
+  t0 = ac.currentTime + .15; step = 0;
+  master.gain.setValueAtTime(.85, ac.currentTime);
+  master.gain.setValueAtTime(.85, t0 + 57.5);
+  master.gain.linearRampToValueAtTime(0, t0 + 59.9);
+  tick(); timer = setInterval(tick, 100);
+  state = 'playing'; big.hidden = true; pp.textContent = '❚❚';
+  cancelAnimationFrame(raf); raf = requestAnimationFrame(frame);
+}
+function frame() {
+  if (state === 'playing' || state === 'paused') {
+    const t = clamp(ac.currentTime - t0, 0, DUR);
+    render(t);
+    fillEl.style.width = (t / DUR * 100) + '%';
+    tmEl.textContent = fmt(t) + ' / 1:00';
+    if (t >= DUR && state === 'playing') return finish();
+  }
+  raf = requestAnimationFrame(frame);
+}
+function finish() {
+  state = 'ended'; stopAudio();
+  big.textContent = '↻ JESZCZE RAZ'; big.hidden = false; pp.textContent = '↻';
+  render(27);
+}
+big.addEventListener('click', start);
+pp.addEventListener('click', async () => {
+  if (state === 'idle' || state === 'ended') return start();
+  if (state === 'playing') { await ac.suspend(); state = 'paused'; pp.textContent = '▶'; }
+  else { await ac.resume(); state = 'playing'; pp.textContent = '❚❚'; }
+});
+
+// plakat przed startem: kadr z refrenu
+render(27);
+Promise.all([
+  document.fonts.load('900 40px Orbitron'), document.fonts.load('40px Monoton'), document.fonts.load('30px VT323')
+]).then(() => { if (state === 'idle') render(27); }).catch(() => {});
+</script>
