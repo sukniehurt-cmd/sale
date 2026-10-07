@@ -33,13 +33,13 @@ Aktywność deweloperów sprawdzona tylko pobieżnie (ostatnia aktywność w org
 | Token | Zmiana wobec poprzedniego raportu |
 |---|---|
 | KGEN | Nadal sprzeczne dane o przychodzie (48–100 mln USD ARR), kap. 35–40 mln. Unlock 7.10.2026 (5,8% podaży) jest dziś. |
-| GEOD | Potwierdzony jako lider DePIN: ARR 8,19 mln USD ([CryptoSlate/rzlt](https://www.rzlt.io/blog/7-depin-projects-generating-10m-revenue-(and-what-you-can-learn-from-them))). Aktywne repo geodnet (aktualizacja dziś). |
+| GEOD | Potwierdzony jako lider DePIN: ARR 8,19 mln USD ([RZLT](https://www.rzlt.io/blog/7-depin-projects-generating-10m-revenue-(and-what-you-can-learn-from-them))). Aktywne repo geodnet (aktualizacja dziś). |
 | NOS | Aktywne repozytoria nosana-ci (aktualizacja dziś), 100% podaży odblokowane. Brak danych o przychodach. |
 | SANC | Repo igneous-labs aktywne (wrzesień 2026). Przychód w USD spadł o 39% w Q2. |
 | DIMO | Repo aktywne (październik 2026), ale brak danych o przychodach i sprzeczna kapitalizacja. |
 | GNS | Repo z aktualizacjami we wrześniu; buyback nadal wstrzymany. |
 | DRIFT | Wyszukiwanie GitHuba pokazuje w org drift-labs tylko 2 świeże repozytoria (z lipca 2026), a nie główny kod protokołu. Nie umiem tego wyjaśnić, więc **trzeba to sprawdzić ręcznie** zanim ufamy temu wpisowi. |
-| AETH/ATH | Przychód nadal spada kwartał do kwartału. |
+| ATH | Przychód nadal spada kwartał do kwartału. |
 
 ## Wnioski
 1. Realnie nowy i warty sprawdzenia jest tylko Hivemapper, i to pod warunkiem potwierdzenia przychodów.
